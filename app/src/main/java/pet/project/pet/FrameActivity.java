@@ -1,5 +1,8 @@
 package pet.project.pet;
 
+import android.app.FragmentManager;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,15 +13,18 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class RecentActivity extends AppCompatActivity {
+public class FrameActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    private ViewPager pager;
+    private TabLayout tabLayout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recent);
+        setContentView(R.layout.activity_frame);
+        addControl();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
@@ -43,7 +49,7 @@ public class RecentActivity extends AppCompatActivity {
 //            }
 //        });
 
-        ImageButton imageButton2= (ImageButton)view.findViewById(R.id.action_bar_forward);
+        ImageButton imageButton2= (ImageButton)view.findViewById(R.id.btn_search);
 
         imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +57,17 @@ public class RecentActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Forward Button is clicked", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void addControl() {
+        pager = (ViewPager) findViewById(R.id.view_pager);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        PagerAdapter adapter = new PagerAdapter(manager);
+        pager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(pager);
+        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setTabsFromPagerAdapter(adapter);
     }
 
     @Override
