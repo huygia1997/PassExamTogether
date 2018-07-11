@@ -21,15 +21,18 @@
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:background="#4cef59"
-            app:tabSelectedTextColor="#ef4c54">
+            android:background="#d47b7f7b"
+            app:tabSelectedTextColor="#0a1e73">
 
         </android.support.design.widget.TabLayout>
+
         <android.support.v4.view.ViewPager
-            android:layout_below="@id/tab_layout"
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="553dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark" />
 
     </RelativeLayout>
 

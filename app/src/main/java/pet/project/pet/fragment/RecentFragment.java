@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import pet.project.pet.R;
 
@@ -27,5 +29,12 @@ public class RecentFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_recent, container, false);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        RadioGroup rdG_filter = (RadioGroup)getActivity().findViewById(R.id.rdG_filter);
+        RadioButton rd_group_choice = (RadioButton)getActivity().findViewById(R.id.rd_group_choice);
+        rd_group_choice.setChecked(true);
+    }
 }

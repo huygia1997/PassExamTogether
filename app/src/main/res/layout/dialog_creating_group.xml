@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#e0cccfd8"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_create_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="Create group"
+        android:textColor="@android:color/background_dark"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:id="@+id/txt_group_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="?android:attr/listDivider" />
+
+    <EditText
+        android:id="@+id/txtDesciption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="?android:attr/listDivider" />
+
+    <Spinner
+        android:id="@+id/spnr_Subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Spinner>
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="?android:attr/listDivider" />
+
+    <EditText
+        android:id="@+id/txt_group_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Pasword"
+        android:inputType="textPassword" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:background="?android:attr/listDivider" />
+
+    <Button
+        android:id="@+id/btn_submit_create_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:text="Submit" />
+
+</LinearLayout>
