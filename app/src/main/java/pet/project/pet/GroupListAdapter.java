@@ -1,14 +1,11 @@
 package pet.project.pet;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import java.sql.Date;
 import java.util.List;
 
 public class GroupListAdapter extends BaseAdapter {
@@ -18,23 +15,9 @@ public class GroupListAdapter extends BaseAdapter {
 
     public GroupListAdapter(List<GroupDTO> listData, Context context) {
         this.listData = listData;
-        layoutInflater = LayoutInflater.from(context);
+        //layoutInflater = LayoutInflater.from(context);
         this.context = context;
-    }
-
-    @Override
-    public int getCount() {
-        return 0;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -46,27 +29,42 @@ public class GroupListAdapter extends BaseAdapter {
             holder.numberQuestion = (TextView) convertView.findViewById(R.id.textView_numberQuestion);
             holder.groupName = (TextView) convertView.findViewById(R.id.textView_groupName);
             holder.groupOwner = (TextView) convertView.findViewById(R.id.textView_groupOwner);
-            holder.tag = (TextView) convertView.findViewById(R.id.textView_tag);
-            holder.timeCreated = (TextView) convertView.findViewById(R.id.textView_timeCreated);
+            holder.tagView = (TextView) convertView.findViewById(R.id.textView_tag);
+            holder.timeCreatedView = (TextView) convertView.findViewById(R.id.textView_timeCreated);
             convertView.setTag(holder);
         } else{
             holder = (ViewHolder) convertView.getTag();
         }
         GroupDTO group = this.listData.get(position);
-        holder.numberQuestion.setText(group.getNumberQuestion());
+        holder.numberQuestion.setText(group.getNumberQuestion() + "");
         holder.groupName.setText(group.getGroupName());
         holder.groupOwner.setText(group.getGroupOwner());
-        holder.tag.setText(group.getTag());
-        holder.timeCreated.setText(group.getTimeCreated().toString());
-
+        holder.tagView.setText(group.getTag());
+        holder.timeCreatedView.setText(group.getTimeCreated());
         return convertView;
     }
+    @Override
+    public int getCount() {
+        return listData.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return listData.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+
 
     static class ViewHolder{
         TextView numberQuestion;
         TextView groupName;
         TextView groupOwner;
-        TextView tag;
-        TextView timeCreated;
+        TextView tagView;
+        TextView timeCreatedView;
     }
 }
