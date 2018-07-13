@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pet.project.pet.FrameActivity;
+import pet.project.pet.GroupActivity;
 import pet.project.pet.GroupDTO;
 import pet.project.pet.GroupListAdapter;
 import pet.project.pet.R;
@@ -52,7 +53,7 @@ public class GroupFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(FrameActivity.class, GroupActivity.class);
+                Intent intent = new Intent(getActivity().getApplication(), GroupActivity.class);
                 startActivity(intent);
             }
         });
