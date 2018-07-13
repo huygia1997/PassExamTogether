@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#94c1d6e4"
     android:orientation="vertical">
     <TextView
         android:id="@+id/textView_numberAnswer"
@@ -14,45 +15,70 @@
         android:layout_marginRight="5dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:textAlignment="center"
-        android:textSize="50dp"
-        android:text="50"
+        android:gravity="center"
+        android:background="#9ae9e2e2"
+        android:text="50a"
+        android:textSize="20dp"
+
         android:width="64dp"
         android:height="64dp" />
+
     <TextView
         android:id="@+id/textView_questionTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:layout_below="@id/textView_numberAnswer"
-        android:text="SWD"
-        android:layout_marginLeft="5dp"
-        />
+        android:layout_alignStart="@+id/textView_numberAnswer"
+        android:layout_below="@+id/textView_numberAnswer"
+        android:layout_marginTop="-5dp"
+        android:gravity="center"
+        android:text="swd"
+        android:textColor="#555668"
+        android:background="#cfa4de9d"
+        android:width="64dp"
+        android:height="20dp" />
+
     <TextView
         android:id="@+id/textView_questionTitle"
+        android:layout_width="273dp"
+        android:layout_height="39dp"
+        android:layout_above="@id/textView_questionOwner"
+        android:layout_alignTop="@+id/textView_numberAnswer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:layout_toRightOf="@id/textView_numberAnswer"
+        android:background="#bef19191"
+        android:gravity="center_vertical"
+        android:text="Quest content"
+        android:textColor="#000000"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textView_labelOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/textView_numberAnswer"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="Question name:"
-        android:textSize="25dp"/>
+        android:layout_alignBottom="@+id/textView_questionTag"
+        android:layout_alignStart="@+id/textView_questionTitle"
+        android:text="create_by:"
+        android:textSize="15dp" />
+
     <TextView
         android:id="@+id/textView_questionOwner"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textView_numberAnswer"
+        android:layout_marginEnd="71dp"
+        android:layout_marginTop="-5dp"
+        android:text="Ques's owner"
+        android:textColor="#d540413f"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/textView_timeCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/textView_numberAnswer"
-        android:layout_below="@id/textView_questionTitle"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="Question created by"
-        android:textSize="25dp"/>
+        android:layout_alignBottom="@+id/textView_questionTag"
+        android:layout_alignParentEnd="true"
+        android:text="Approve?"
+        android:textSize="10dp" />
 </RelativeLayout>
