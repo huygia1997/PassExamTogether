@@ -1,11 +1,13 @@
 package pet.project.pet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -22,6 +24,14 @@ public class GroupActivity extends AppCompatActivity {
         List<QuestionDTO> list = getListData();
         ListView listView = (ListView) findViewById(R.id.listQuestion);
         listView.setAdapter(new QuestionListAdapter(list, this));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(GroupActivity.this, QuestionActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

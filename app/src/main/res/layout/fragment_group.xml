@@ -8,19 +8,16 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
+
+    <ListView
+        android:id="@+id/listGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="abc"/>
-
-        <ListView
-            android:id="@+id/listGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp">
 
 
-
-        </ListView>
+    </ListView>
 
 
 

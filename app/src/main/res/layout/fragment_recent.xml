@@ -9,31 +9,33 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="118dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="92dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:text="Recent"
-            android:textSize="30dp" />
+            android:textSize="20dp" />
 
         <Space
-            android:layout_width="143dp"
+            android:layout_width="136dp"
             android:layout_height="match_parent" />
 
         <RadioGroup
             android:id="@+id/rdG_filter"
-            android:layout_width="182dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/rd_group_choice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="22dp"
                 android:text="Group" />
 
             <RadioButton
@@ -45,7 +47,11 @@
         </RadioGroup>
 
     </TableRow>
+
     <TableRow>
+        <LinearLayout>
+
+        </LinearLayout>
 
     </TableRow>
 </TableLayout>

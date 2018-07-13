@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class FrameActivity extends AppCompatActivity {
         addControl();
 
 
+
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 //        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
@@ -48,6 +51,7 @@ public class FrameActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_layout);
         View view =getSupportActionBar().getCustomView();
+
 
 //        ImageButton imageButton= (ImageButton)view.findViewById(R.id.action_bar_back);
 

@@ -10,7 +10,7 @@
 
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -18,24 +18,26 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="553dp"
+            android:layout_height="539dp"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" >
+            android:layout_marginBottom="64dp">
 
         </android.support.v4.view.ViewPager>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="64dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:background="#d47b7f7b"
-            app:tabSelectedTextColor="#0a1e73">
+            android:background="#9ce2eaf4"
+            app:tabIndicatorColor="#fb053bdd"
+            app:tabSelectedTextColor="#031c84">
 
         </android.support.design.widget.TabLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 
