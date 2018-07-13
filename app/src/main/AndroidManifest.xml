@@ -20,7 +20,8 @@
         <activity
             android:name=".GroupActivity"
             android:label="@string/title_activity_group"
-            android:theme="@style/CustomTheme.NoActionBar"></activity>
+            android:theme="@style/CustomTheme.NoActionBar" />
+        <activity android:name=".QuestionActivity"></activity>
     </application>
 
 </manifest>
