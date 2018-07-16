@@ -17,12 +17,12 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 try {
                     super.run();
-                    sleep(2000);  //Delay of 1 seconds
+                    sleep(1000);  //Delay of 1 seconds
                 } catch (Exception e) {
 
                 } finally {
 
-                    Intent i = new Intent(MainActivity.this, FrameActivity.class);
+                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(i);
                     finish();
                 }
