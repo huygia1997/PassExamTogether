@@ -2,7 +2,10 @@ package pet.project.pet;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +16,29 @@ public class QuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-        List<QuestionDTO> list = getListData();
-        ListView listView = (ListView) findViewById(R.id.listQuestion);
-        listView.setAdapter(new QuestionListAdapter(list, this));
+        List<AnswerDTO> list = getListData();
+        ListView listView = (ListView) findViewById(R.id.listView_listAnswer);
+        listView.setAdapter(new AnswerListAdapter(list, this));
     }
 
-    private List<QuestionDTO> getListData(){
-        List<QuestionDTO> list = new ArrayList<QuestionDTO>();
-        QuestionDTO question1 = new QuestionDTO("Q01", "SWD", "Day la cau 01", "SWD", "2018", "phukhanh", 10, true, false);
-        QuestionDTO question2 = new QuestionDTO("Q02", "HCI", "Day la cau 02", "SWD", "2017", "giahuy", 10, false, true);
-        QuestionDTO question3 = new QuestionDTO("Q03", "PRM", "Day la cau 03", "SWD", "2018", "phukhanh", 10, true, false);
-        list.add(question1);
-        list.add(question2);
-        list.add(question3);
+    private List<AnswerDTO> getListData(){
+        List<AnswerDTO> list = new ArrayList<AnswerDTO>();
+        AnswerDTO answer1 = new AnswerDTO("answer01", "giahuy", "question01", "Day la cau tra loi 01", 101, true);
+        AnswerDTO answer2 = new AnswerDTO("answer01", "phukhanh", "question01", "Day la cau tra loi 02", 121, true);
+        AnswerDTO answer3 = new AnswerDTO("answer01", "thinhphat", "question01", "Day la cau tra loi 03", 301, true);
+
+        list.add(answer1);
+        list.add(answer2);
+        list.add(answer3);
         return list;
+    }
+
+    public void clickToEdit(View view) {
+    }
+
+    public void clickToComment(View view) {
+    }
+
+    public void clickToReset(View view) {
     }
 }

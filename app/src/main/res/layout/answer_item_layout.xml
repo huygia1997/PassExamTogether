@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textView_numberUpvote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:background="#9ae9e2e2"
+        android:text="50a"
+        android:textSize="20dp"
+        android:width="64dp"
+        android:height="64dp" />
+    <TextView
+        android:id="@+id/textView_answerContent"
+        android:layout_width="273dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:layout_toRightOf="@id/textView_numberUpvote"
+        android:background="#bef19191"
+        android:gravity="center_vertical"
+        android:text="Quest content"
+        android:textColor="#000000"
+        android:textSize="25dp" />
+    <TextView
+        android:id="@+id/textView_userCommentID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User's comment id:"
+        android:layout_below="@id/textView_answerContent"
+        android:layout_toRightOf="@id/textView_numberUpvote"/>
+</RelativeLayout>

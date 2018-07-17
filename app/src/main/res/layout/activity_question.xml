@@ -4,10 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".QuestionActivity">
-    <ListView
-        android:id="@+id/listQuestion"
+
+    <TextView
+        android:id="@+id/txtQuestion_QuestionTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Question title"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:id="@+id/txtQuestion_QuestionTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Question tag"
+        android:textSize="20dp" />
+    <TextView
+        android:id="@+id/txtQuestion_QuestionContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="1 cai gi do that la vi dieu"
+        android:textSize="20dp"/>
+    <Button
+        android:id="@+id/btnQuestion_editQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Edit"
+        android:onClick="clickToEdit"
+        android:visibility="invisible"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="5"
+        android:id="@+id/listView_listAnswer">
     </ListView>
+    <EditText
+        android:id="@+id/edtQuestion_Answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Reply something here"
+        android:textSize="20dp"/>
+    <Button
+        android:id="@+id/btnQuestion_submitAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Comment"
+        android:onClick="clickToComment"/>
+
+    <Button
+        android:id="@+id/btnQuestion_resetAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="clickToReset"
+        android:text="Reset" />
 </LinearLayout>

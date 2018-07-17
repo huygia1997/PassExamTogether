@@ -7,9 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class QuestionListAdapter extends BaseAdapter {
+public class QuestionListAdapter extends BaseAdapter implements Serializable {
     private List<QuestionDTO> listData;
     private LayoutInflater layoutInflater;
     private Context context;

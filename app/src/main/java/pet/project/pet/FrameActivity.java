@@ -41,9 +41,9 @@ public class FrameActivity extends AppCompatActivity {
 
 
 
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 //        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-
 //        mDrawerLayout.addDrawerListener(mToggle);
 //        mToggle.syncState();
 
@@ -89,6 +89,7 @@ public class FrameActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void addControl() {

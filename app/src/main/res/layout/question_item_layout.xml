@@ -19,7 +19,6 @@
         android:background="#9ae9e2e2"
         android:text="50a"
         android:textSize="20dp"
-
         android:width="64dp"
         android:height="64dp" />
 
