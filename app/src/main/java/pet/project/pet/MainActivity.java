@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } finally {
 
-                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent i = new Intent(MainActivity.this, FrameActivity.class);
                     startActivity(i);
                     finish();
                 }

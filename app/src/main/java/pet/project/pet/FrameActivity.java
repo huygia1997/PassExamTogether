@@ -53,17 +53,6 @@ public class FrameActivity extends AppCompatActivity {
         View view =getSupportActionBar().getCustomView();
 
 
-//        ImageButton imageButton= (ImageButton)view.findViewById(R.id.action_bar_back);
-
-
-
-
-//        imageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
 
         ImageButton btn_search= (ImageButton)view.findViewById(R.id.btn_search);
 
