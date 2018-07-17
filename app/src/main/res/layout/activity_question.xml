@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,60 +9,73 @@
 
     <TextView
         android:id="@+id/txtQuestion_QuestionTitle"
-        android:layout_width="match_parent"
+        android:layout_width="337dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:text="Question title"
-        android:textSize="30dp"/>
+        android:textSize="30dp" />
 
     <TextView
-        android:id="@+id/txtQuestion_QuestionTag"
-        android:layout_width="match_parent"
+        android:id="@+id/txtQuestion_QuestionOwner"
+        android:layout_width="185dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Question tag"
-        android:textSize="20dp" />
-    <TextView
-        android:id="@+id/txtQuestion_QuestionContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="1 cai gi do that la vi dieu"
-        android:textSize="20dp"/>
+        android:layout_alignBaseline="@+id/btn_Ques_Tag"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="66dp"
+        android:text="ques owner"
+        android:textSize="15dp" />
+
     <Button
         android:id="@+id/btnQuestion_editQuestion"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Edit"
+        android:layout_width="47dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtQuestion_QuestionTitle"
+        android:layout_alignParentEnd="true"
         android:onClick="clickToEdit"
-        android:visibility="invisible"/>
+        android:text="Edit"
+        android:textSize="10sp"
+        android:visibility="visible" />
+
     <ListView
+        android:id="@+id/listView_listAnswer"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="351dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="108dp"
         android:layout_weight="5"
-        android:id="@+id/listView_listAnswer">
-    </ListView>
-    <EditText
-        android:id="@+id/edtQuestion_Answer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Reply something here"
-        android:textSize="20dp"/>
-    <Button
-        android:id="@+id/btnQuestion_submitAnswer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Comment"
-        android:onClick="clickToComment"/>
+        android:divider="#c57a7676"
+        android:dividerHeight="2sp"></ListView>
 
     <Button
-        android:id="@+id/btnQuestion_resetAnswer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnQuestion_submitAnswer"
+        android:layout_width="65dp"
+        android:layout_height="36dp"
+        android:layout_alignBaseline="@+id/edtQuestion_Answer"
+        android:layout_alignParentEnd="true"
         android:layout_weight="1"
-        android:onClick="clickToReset"
-        android:text="Reset" />
-</LinearLayout>
+        android:onClick="clickToComment"
+        android:text="Submit"
+        android:textSize="8dp" />
+
+    <Button
+        android:id="@+id/btn_Ques_Tag"
+        android:layout_width="54dp"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="41dp"
+        android:text="Q Tag"
+        android:textSize="10dp" />
+
+    <EditText
+        android:id="@+id/edtQuestion_Answer"
+        android:layout_width="317dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="Reply something here"
+        android:textSize="20dp" />
+
+</RelativeLayout>
