@@ -43,10 +43,7 @@ public class GroupFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_group, container, false);
 
         List<GroupDTO> list = getListData();
-//        String[] menuItem = {"abc", "acb", "bcd"};
-//        ArrayAdapter<String> adap = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, menuItem);
         ListView listView = (ListView)rootView.findViewById(R.id.listGroup);
-//        listView.setAdapter(adap);
         GroupListAdapter groupAdapt = new GroupListAdapter(list, getActivity());
         listView.setAdapter(groupAdapt);
 
