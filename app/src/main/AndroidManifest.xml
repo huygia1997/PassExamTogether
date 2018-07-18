@@ -23,7 +23,8 @@
             android:theme="@style/CustomTheme.NoActionBar" />
         <activity android:name=".QuestionActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".RegistrationActivity"></activity>
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".GroupSubjectActivity"></activity>
     </application>
 
 </manifest>
