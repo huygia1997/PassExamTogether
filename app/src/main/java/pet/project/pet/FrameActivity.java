@@ -3,8 +3,12 @@ package pet.project.pet;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.Context;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -26,6 +30,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import pet.project.pet.model.Group;
+import pet.project.pet.remote.ApiUtils;
+import pet.project.pet.remote.GroupService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class FrameActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -34,17 +45,16 @@ public class FrameActivity extends AppCompatActivity {
     private Spinner spnr_Subject;
     Button btn_Create_Group;
     private Dialog dialog;
-
+    GroupService groupService;
+    private List<Group> groups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame);
+        groupService = ApiUtils.getGroupService();
+        groups = getAllGroups();
         addControl();
-
-
-
-
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -54,6 +64,12 @@ public class FrameActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_logout:
                         Toast.makeText(FrameActivity.this, "abc", Toast.LENGTH_SHORT).show();
+                        SharedPreferences shared = getSharedPreferences("Account",Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = shared.edit();
+                        editor.clear();
+                        editor.commit();
+                        Intent intent = new Intent(FrameActivity.this, LoginActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.nav_ava:
                         return true;
@@ -70,8 +86,6 @@ public class FrameActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_layout);
         View view =getSupportActionBar().getCustomView();
-
-
 
         ImageButton btn_search= (ImageButton)view.findViewById(R.id.btn_search);
 
@@ -111,6 +125,14 @@ public class FrameActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.navigation_menu, menu);
+        return true;
+    }
+
+
     private void addControl() {
         pager = (ViewPager) findViewById(R.id.view_pager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -122,11 +144,6 @@ public class FrameActivity extends AppCompatActivity {
         tabLayout.setTabsFromPagerAdapter(adapter);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        return super.onCreateOptionsMenu(menu);
-    }
 
 //    @Override
 //    public boolean onPrepareOptionsMenu(Menu menu) {
@@ -137,6 +154,26 @@ public class FrameActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return true;
+
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    private List<Group> getAllGroups(){
+
+        Call<List<Group>> call = groupService.getAllGroups();
+        call.enqueue(new Callback<List<Group>>() {
+            @Override
+            public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
+                groups = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<Group>> call, Throwable t) {
+                Toast.makeText(FrameActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return groups;
     }
 }

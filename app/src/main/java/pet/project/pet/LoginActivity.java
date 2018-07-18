@@ -1,6 +1,8 @@
 package pet.project.pet;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,29 +21,29 @@ import pet.project.pet.model.ResObj;
 import pet.project.pet.model.User;
 import pet.project.pet.remote.ApiUtils;
 import pet.project.pet.remote.UserService;
-import pet.project.pet.ultils.UserProvider;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    TextView txtRes ;
+    TextView txtRes;
     EditText edtUsername, edtPassword;
     Button btnLogin;
     UserService userService;
+    private boolean Logged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        edtUsername = (EditText)findViewById(R.id.edtUsername);
-        edtPassword = (EditText)findViewById(R.id.edtPassword);
-        btnLogin = (Button)findViewById(R.id.btnLogin);
+        edtUsername = (EditText) findViewById(R.id.edtUsername);
+        edtPassword = (EditText) findViewById(R.id.edtPassword);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
         userService = ApiUtils.getUserService();
 
         setTitle("Login");
 
-        txtRes = (TextView)findViewById(R.id.txtRegistration);
+        txtRes = (TextView) findViewById(R.id.txtRegistration);
         txtRes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,35 +59,52 @@ public class LoginActivity extends AppCompatActivity {
                 String password = edtPassword.getText().toString();
 
                 //validation
-                if(validationLogin(username, password)){
+                if (validationLogin(username, password)) {
                     doLogin(username, password);
                 }
             }
         });
 
+        SharedPreferences sharedPreferences = getSharedPreferences("Account", Context.MODE_PRIVATE);
+        boolean isLogged = sharedPreferences.getBoolean("IS_LOGGED",false);
+        Logged = isLogged;
+        if(Logged){
+            Intent intent = new Intent(this, FrameActivity.class);
+            startActivity(intent);
+        }
+
     }
 
-    private boolean validationLogin(String username, String password){
-        if(username == null || username.trim().length() == 0){
+    private boolean validationLogin(String username, String password) {
+        if (username == null || username.trim().length() == 0) {
             Toast.makeText(this, "Username is required!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(password == null || password.trim().length() == 0) {
+        if (password == null || password.trim().length() == 0) {
             Toast.makeText(this, "Password is required", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
-    private void doLogin(final String username, final String password){
+    private void doLogin(final String username, final String password) {
         Call<ResObj> call = userService.getUser(username, password);
         call.enqueue(new Callback<ResObj>() {
             @Override
             public void onResponse(Call<ResObj> call, Response<ResObj> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ResObj resObj = response.body();
-                    if(resObj.isMessage()){
+                    if (resObj.isMessage()) {
+                        Logged = true;
+                        SharedPreferences sharedPreferences = getSharedPreferences("Account", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("IS_LOGGED", Logged);
+                        editor.commit();
+
                         Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, FrameActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "The Username or Password is incorrect!", Toast.LENGTH_SHORT).show();
                     }

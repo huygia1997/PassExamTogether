@@ -13,6 +13,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import pet.project.pet.model.Group;
+
 public class GroupActivity extends AppCompatActivity {
 
     @Override

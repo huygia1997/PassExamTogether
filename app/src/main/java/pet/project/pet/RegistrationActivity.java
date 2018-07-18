@@ -1,5 +1,6 @@
 package pet.project.pet;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -81,6 +82,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     ResObj resObj = response.body();
                     if(resObj.isMessage()){
                         Toast.makeText(RegistrationActivity.this, "Register successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(RegistrationActivity.this, "Register fail!", Toast.LENGTH_SHORT).show();
                     }
