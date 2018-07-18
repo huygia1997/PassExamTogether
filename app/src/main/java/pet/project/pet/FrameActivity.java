@@ -3,6 +3,8 @@ package pet.project.pet;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +12,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -43,9 +47,24 @@ public class FrameActivity extends AppCompatActivity {
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-//        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-//        mDrawerLayout.addDrawerListener(mToggle);
-//        mToggle.syncState();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_logout:
+                        Toast.makeText(FrameActivity.this, "abc", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.nav_ava:
+                        return true;
+                    default:
+                        return false;
+                }
+                // close drawer when item is tapped
+
+
+            }
+        });
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -104,7 +123,20 @@ public class FrameActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        MenuItem nav_logout = (MenuItem)findViewById(R.id.nav_logout);
+//        nav_logout.setTitle("abc");
+//        return super.onPrepareOptionsMenu(menu);
+//    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }
