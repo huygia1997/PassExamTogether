@@ -22,11 +22,11 @@
 
     <TextView
         android:id="@+id/textView_answerContent"
-        android:layout_width="273dp"
+        android:layout_width="259dp"
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/textView_numberUpvote"
-        android:layout_marginEnd="26dp"
+        android:layout_marginEnd="16dp"
         android:background="#bebcf2bf"
         android:gravity="center_vertical"
         android:text="Answer content"

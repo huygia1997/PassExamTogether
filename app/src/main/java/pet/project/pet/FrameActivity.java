@@ -58,12 +58,13 @@ public class FrameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame);
         //groupService = ApiUtils.getGroupService();
-        //new AsynTaskLoadData(this).execute("abc");
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        addControl();
+        groups = getAllGroups();
+
+        addControl(groups);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -128,23 +129,23 @@ public class FrameActivity extends AppCompatActivity {
             }
         });
 
-        groups = getAllGroups();
+
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.navigation_menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.navigation_menu, menu);
+//        return true;
+//    }
 
 
-    private void addControl() {
+    private void addControl(List<Group> groups) {
         pager = (ViewPager) findViewById(R.id.view_pager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-        PagerAdapter adapter = new PagerAdapter(manager);
+        PagerAdapter adapter = new PagerAdapter(manager, groups);
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

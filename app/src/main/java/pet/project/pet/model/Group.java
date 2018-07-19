@@ -9,7 +9,7 @@ public class Group implements Serializable {
     private int subId;
     private String password;
     private int userId;
-    private String totalQuestions;
+    private int totalQuestions;
     private Date createdDate;
     private Date updatedDate;
     private boolean active;
@@ -18,7 +18,7 @@ public class Group implements Serializable {
     public Group() {
     }
 
-    public Group(String groupName, int subId, String password, int userId, String totalQuestions, Date createdDate, Date updatedDate, boolean active, Date closedDate) {
+    public Group(String groupName, int subId, String password, int userId, int totalQuestions, Date createdDate, Date updatedDate, boolean active, Date closedDate) {
         this.groupName = groupName;
         this.subId = subId;
         this.password = password;
@@ -70,11 +70,11 @@ public class Group implements Serializable {
         this.userId = userId;
     }
 
-    public String getTotalQuestions() {
+    public int getTotalQuestions() {
         return totalQuestions;
     }
 
-    public void setTotalQuestions(String totalQuestions) {
+    public void setTotalQuestions(int totalQuestions) {
         this.totalQuestions = totalQuestions;
     }
 

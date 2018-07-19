@@ -8,12 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.List;
 
+import pet.project.pet.model.Group;
+
 public class GroupListAdapter extends BaseAdapter {
-    private List<GroupDTO> listData;
+    private List<Group> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public GroupListAdapter(List<GroupDTO> listData, Context context) {
+    public GroupListAdapter(List<Group> listData, Context context) {
         this.listData = listData;
         //layoutInflater = LayoutInflater.from(context);
         this.context = context;
@@ -35,12 +37,12 @@ public class GroupListAdapter extends BaseAdapter {
         } else{
             holder = (ViewHolder) convertView.getTag();
         }
-        GroupDTO group = this.listData.get(position);
-        holder.numberQuestion.setText(group.getNumberQuestion() + "");
+        Group group = this.listData.get(position);
+        holder.numberQuestion.setText(group.getTotalQuestions() + "");
         holder.groupName.setText(group.getGroupName());
-        holder.groupOwner.setText(group.getGroupOwner());
-        holder.tagView.setText(group.getTag());
-        holder.timeCreatedView.setText(group.getTimeCreated());
+        holder.groupOwner.setText(group.getUserId() + "");
+        holder.tagView.setText(group.getSubId() + "");
+        holder.timeCreatedView.setText(group.getCreatedDate() + "");
         return convertView;
     }
     @Override

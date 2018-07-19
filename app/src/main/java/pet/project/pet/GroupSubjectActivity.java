@@ -13,10 +13,10 @@ public class GroupSubjectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_subject);
-        List<GroupDTO> list = getListData();
-        ListView listView = (ListView) findViewById(R.id.listView_listGroupSubject);
-        GroupListAdapter groupAdapt = new GroupListAdapter(list, this);
-        listView.setAdapter(groupAdapt);
+//        List<GroupDTO> list = getListData();
+//        ListView listView = (ListView) findViewById(R.id.listView_listGroupSubject);
+//        GroupListAdapter groupAdapt = new GroupListAdapter(list, this);
+//        listView.setAdapter(groupAdapt);
     }
 
     private List<GroupDTO> getListData(){

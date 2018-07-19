@@ -34,17 +34,17 @@ public class SubjectFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_subject, container, false);
-        List<SubjectDTO> list = getListData();
-        ListView listView = (ListView) rootView.findViewById(R.id.listView_listSubject);
-        listView.setAdapter(new SubjectListAdapter(list, getActivity()));
+//        List<SubjectDTO> list = getListData();
+//        ListView listView = (ListView) rootView.findViewById(R.id.listView_listSubject);
+//        listView.setAdapter(new SubjectListAdapter(list, getActivity()));
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity().getApplication(), GroupSubjectActivity.class);
-                startActivity(intent);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent intent = new Intent(getActivity().getApplication(), GroupSubjectActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         return rootView;
 

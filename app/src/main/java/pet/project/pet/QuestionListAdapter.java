@@ -10,12 +10,14 @@ import android.widget.TextView;
 import java.io.Serializable;
 import java.util.List;
 
+import pet.project.pet.model.Question;
+
 public class QuestionListAdapter extends BaseAdapter implements Serializable {
-    private List<QuestionDTO> listData;
+    private List<Question> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public QuestionListAdapter(List<QuestionDTO> listData, Context context) {
+    public QuestionListAdapter(List<Question> listData, Context context) {
         this.listData = listData;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -50,11 +52,11 @@ public class QuestionListAdapter extends BaseAdapter implements Serializable {
         } else{
             holder = (ViewHolder) convertView.getTag();
         }
-        QuestionDTO question = this.listData.get(position);
-        holder.numberAnswerView.setText(question.getNumberAnswer() + "");
+        Question question = this.listData.get(position);
+        holder.numberAnswerView.setText(question.getTotalAnswers() + "");
         holder.questionTitleView.setText(question.getTitle());
-        holder.questionCreatedByView.setText(question.getUserID());
-        holder.questionTagView.setText(question.getTag());
+        holder.questionCreatedByView.setText(question.getUserId() + "");
+        holder.questionTagView.setText(question.getSubId() + "");
         return convertView;
     }
 
