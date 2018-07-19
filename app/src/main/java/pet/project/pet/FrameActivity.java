@@ -1,11 +1,13 @@
 package pet.project.pet;
 
 import android.app.Dialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 
@@ -16,6 +18,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,11 +30,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import pet.project.pet.model.Group;
 import pet.project.pet.remote.ApiUtils;
+import pet.project.pet.remote.AsynTaskLoadData;
 import pet.project.pet.remote.GroupService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,8 +57,12 @@ public class FrameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame);
-        groupService = ApiUtils.getGroupService();
-        groups = getAllGroups();
+        //groupService = ApiUtils.getGroupService();
+        //new AsynTaskLoadData(this).execute("abc");
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         addControl();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -63,8 +72,7 @@ public class FrameActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_logout:
-                        Toast.makeText(FrameActivity.this, "abc", Toast.LENGTH_SHORT).show();
-                        SharedPreferences shared = getSharedPreferences("Account",Context.MODE_PRIVATE);
+                        SharedPreferences shared = getSharedPreferences("Account", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = shared.edit();
                         editor.clear();
                         editor.commit();
@@ -76,33 +84,30 @@ public class FrameActivity extends AppCompatActivity {
                     default:
                         return false;
                 }
-                // close drawer when item is tapped
-
-
             }
         });
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_layout);
-        View view =getSupportActionBar().getCustomView();
+        View view = getSupportActionBar().getCustomView();
 
-        ImageButton btn_search= (ImageButton)view.findViewById(R.id.btn_search);
+        ImageButton btn_search = (ImageButton) view.findViewById(R.id.btn_search);
 
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Forward Button is clicked", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Forward Button is clicked", Toast.LENGTH_LONG).show();
             }
         });
 
-        ImageButton btn_create_group = (ImageButton)view.findViewById(R.id.btn_add_group);
+        ImageButton btn_create_group = (ImageButton) view.findViewById(R.id.btn_add_group);
         btn_create_group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog = new Dialog(FrameActivity.this);
                 dialog.setContentView(R.layout.dialog_creating_group);
-                spnr_Subject = (Spinner)dialog.findViewById(R.id.spnr_Subject);
+                spnr_Subject = (Spinner) dialog.findViewById(R.id.spnr_Subject);
                 List<String> dataSrc = new ArrayList<>();
                 dataSrc.add("SWD ");
                 dataSrc.add("PRM321");
@@ -122,6 +127,8 @@ public class FrameActivity extends AppCompatActivity {
 
             }
         });
+
+        groups = getAllGroups();
 
     }
 
@@ -144,14 +151,6 @@ public class FrameActivity extends AppCompatActivity {
         tabLayout.setTabsFromPagerAdapter(adapter);
     }
 
-
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        MenuItem nav_logout = (MenuItem)findViewById(R.id.nav_logout);
-//        nav_logout.setTitle("abc");
-//        return super.onPrepareOptionsMenu(menu);
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -159,21 +158,15 @@ public class FrameActivity extends AppCompatActivity {
 
     }
 
-    private List<Group> getAllGroups(){
-
+    private List<Group> getAllGroups() {
+        groupService = ApiUtils.getGroupService();
+        List<Group> groupsList = null;
         Call<List<Group>> call = groupService.getAllGroups();
-        call.enqueue(new Callback<List<Group>>() {
-            @Override
-            public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
-                groups = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<List<Group>> call, Throwable t) {
-                Toast.makeText(FrameActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        return groups;
+        try {
+            groupsList = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return groupsList;
     }
 }

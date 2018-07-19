@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.security.acl.Group;
 import java.util.ArrayList;
@@ -56,11 +57,14 @@ public class GroupFragment extends Fragment {
         });
 
 
+
         return rootView;
     }
 
     private List<GroupDTO> getListData(){
         List<GroupDTO> list = new ArrayList<GroupDTO>();
+        Bundle bundle = new Bundle();
+        ArrayList<Group> groups = (ArrayList<Group>) bundle.getSerializable("groups");
         GroupDTO group1 = new GroupDTO("SWD", "Gia Huy", "2018", true, 50, "SWD");
         GroupDTO group2 = new GroupDTO("HCI", "Phu Khanh", "2018", true, 250, "HCI");
         GroupDTO group3 = new GroupDTO("Mobile", "Thinh Phat", "2017", false, 150, "Mobile");
