@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:text="Reply something here"
+        android:hint="Reply something here"
         android:textSize="20dp" />
 
 </RelativeLayout>

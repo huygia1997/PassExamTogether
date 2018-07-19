@@ -14,10 +14,8 @@ import retrofit2.http.Query;
 
 public interface QuestionService  {
     @GET("api/question/getQuestionsByGroup/{groupId}")
-    Call<List<Question>> getQuestionById(
+    Call<List<Question>> getQuestionsByGroup(
             @Path("groupId") int groupId
     );
 
-//    @POST("api/user/createUser")
-//    Call<ResObj> createUser(@Body User user);
 }

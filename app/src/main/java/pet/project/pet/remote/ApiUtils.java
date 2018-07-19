@@ -14,5 +14,10 @@ public class ApiUtils {
     public static QuestionService getQuestionService(){
         return RetrofitClient.getClient(BASE_UTL).create(QuestionService.class);
     }
+
+    public static AnswerService getAnswerService(){
+        return RetrofitClient.getClient(BASE_UTL).create((AnswerService.class));
+    }
+
 }
 

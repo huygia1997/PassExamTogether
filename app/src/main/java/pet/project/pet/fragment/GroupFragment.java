@@ -38,18 +38,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GroupFragment extends Fragment {
-    QuestionService questionService;
-
 
     public GroupFragment() {
         // Required empty public constructor
     }
 
-
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,14 +55,11 @@ public class GroupFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_group, container, false);
         List<pet.project.pet.model.Group> groupList = (List<pet.project.pet.model.Group>) getArguments().getSerializable("groupList");
 
-
-
-
 //        List<GroupDTO> list = getListData();
+
         final ListView listView = (ListView) rootView.findViewById(R.id.listGroup);
         final GroupListAdapter groupAdapt = new GroupListAdapter(groupList, getActivity());
         listView.setAdapter(groupAdapt);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

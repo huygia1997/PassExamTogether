@@ -46,17 +46,14 @@ public class GroupActivity extends AppCompatActivity {
 
         questions = getListQuestions(groupId);
 
-        //Intent intent = getIntent();
-        //List<Question> list = (List<Question>) intent.getSerializableExtra("dataPass");
-
-
         listView.setAdapter(new QuestionListAdapter(questions, this));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(GroupActivity.this, QuestionActivity.class);
                 pet.project.pet.model.Question questionSelected = (pet.project.pet.model.Question) listView.getAdapter().getItem(position);
-                intent.putExtra("QuestionId", questionSelected.getGroupId());
+
+                Intent intent = new Intent(GroupActivity.this, QuestionActivity.class);
+                intent.putExtra("QuestionSelected", questionSelected);
                 startActivity(intent);
 
             }
@@ -70,7 +67,6 @@ public class GroupActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
 
 
     }
@@ -89,7 +85,7 @@ public class GroupActivity extends AppCompatActivity {
     private List<Question> getListQuestions(int groupId){
         questionService = ApiUtils.getQuestionService();
         List<Question> questionList = null;
-        Call<List<Question>> call = questionService.getQuestionById(groupId);
+        Call<List<Question>> call = questionService.getQuestionsByGroup(groupId);
         try {
             questionList = call.execute().body();
         } catch (IOException e) {

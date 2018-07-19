@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         if(Logged){
             Intent intent = new Intent(this, FrameActivity.class);
             startActivity(intent);
+            finish();
         }
 
     }
