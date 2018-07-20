@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#aededae4"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_edit_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="Edit Question"
+        android:textColor="@android:color/background_dark"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:id="@+id/txt_edit_ques_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="textPersonName" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="?android:attr/listDivider" />
+
+    <EditText
+        android:id="@+id/txt_edit_quest_content"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:ems="10"
+        android:hint="Content"
+        android:inputType="textPersonName" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="?android:attr/listDivider" />
+
+    <Button
+        android:id="@+id/btn_submit_edit_quest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Submit" />
+
+</LinearLayout>

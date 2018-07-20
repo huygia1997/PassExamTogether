@@ -1,5 +1,6 @@
 package pet.project.pet;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -9,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -25,6 +28,7 @@ import retrofit2.Call;
 public class GroupActivity extends AppCompatActivity {
     QuestionService questionService;
     private List<Question> questions;
+    private Dialog dialog;
     private ListView listView;
 
     @Override
@@ -63,8 +67,25 @@ public class GroupActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                dialog = new Dialog(GroupActivity.this);
+                dialog.setContentView(R.layout.dialog_update_question);
+                dialog.setTitle("Create Question");
+                TextView txt_edit_title = (TextView) dialog.findViewById(R.id.txt_edit_ques_title);
+                txt_edit_title.setText("anh load data title vao day");
+                TextView txt_edit_content = (TextView) dialog.findViewById(R.id.txt_edit_quest_content);
+                txt_edit_content.setText("anh load data content vao day");
+
+
+                dialog.show();
+
+                Button btn_submit_edit_quest = (Button) dialog.findViewById(R.id.btn_submit_edit_quest);
+                btn_submit_edit_quest.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(GroupActivity.this, "tao ques", Toast.LENGTH_SHORT).show();
+                        // sau khi nhan submit tao group
+                    }
+                });
             }
         });
 

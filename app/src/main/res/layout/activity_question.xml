@@ -10,11 +10,21 @@
     <TextView
         android:id="@+id/txtQuestion_QuestionTitle"
         android:layout_width="337dp"
-        android:layout_height="wrap_content"
+        android:layout_height="31dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="Question title"
-        android:textSize="30dp" />
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/txtQuestion_QuestionContent"
+        android:layout_width="337dp"
+        android:layout_height="61dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="43dp"
+        android:text="quetstion content"
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/txtQuestion_QuestionOwner"
@@ -40,10 +50,10 @@
     <ListView
         android:id="@+id/listView_listAnswer"
         android:layout_width="match_parent"
-        android:layout_height="351dp"
+        android:layout_height="313dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="151dp"
         android:layout_weight="5"
         android:divider="#c57a7676"
         android:dividerHeight="2sp"></ListView>
@@ -63,9 +73,9 @@
         android:id="@+id/btn_Ques_Tag"
         android:layout_width="54dp"
         android:layout_height="35dp"
+        android:layout_above="@+id/listView_listAnswer"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="41dp"
+        android:layout_marginBottom="-151dp"
         android:text="Q Tag"
         android:textSize="10dp" />
 
@@ -75,6 +85,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="11dp"
+        android:background="#fefdfd"
         android:hint="Reply something here"
         android:textSize="20dp" />
 

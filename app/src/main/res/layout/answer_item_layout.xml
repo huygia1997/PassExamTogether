@@ -9,10 +9,9 @@
         android:id="@+id/textView_numberUpvote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView_answerContent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="12dp"
         android:width="64dp"
         android:height="64dp"
         android:background="#9ae9e2e2"
@@ -23,10 +22,11 @@
     <TextView
         android:id="@+id/textView_answerContent"
         android:layout_width="259dp"
-        android:layout_height="40dp"
+        android:layout_height="99dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/textView_numberUpvote"
-        android:layout_marginEnd="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="13dp"
+        android:layout_marginTop="38dp"
         android:background="#bebcf2bf"
         android:gravity="center_vertical"
         android:text="Answer content"
@@ -37,26 +37,26 @@
         android:id="@+id/textView_userCommentID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView_numberUpvote"
         android:layout_alignStart="@+id/textView_answerContent"
+        android:layout_below="@+id/textView_answerContent"
         android:text="User's comment id:" />
 
     <ImageButton
         android:id="@+id/btn_Up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/btn_Down"
-        android:layout_marginTop="13dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/textView_answerContent"
+        android:layout_marginStart="24dp"
         app:srcCompat="@android:drawable/arrow_up_float" />
 
     <ImageButton
         android:id="@+id/btn_Down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/textView_userCommentID"
-        android:layout_marginStart="26dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/btn_Up"
+        android:layout_marginTop="112dp"
         app:srcCompat="@android:drawable/arrow_down_float" />
 
 </RelativeLayout>

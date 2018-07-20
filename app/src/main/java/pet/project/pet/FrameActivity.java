@@ -80,7 +80,9 @@ public class FrameActivity extends AppCompatActivity {
                         Intent intent = new Intent(FrameActivity.this, LoginActivity.class);
                         startActivity(intent);
                         return true;
-                    case R.id.nav_ava:
+                    case R.id.nav_profile:
+                        Intent intent1 = new Intent(FrameActivity.this, AccountActivity.class);
+                        startActivity(intent1);
                         return true;
                     default:
                         return false;
