@@ -11,12 +11,14 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
+import pet.project.pet.model.Subject;
+
 public class SubjectListAdapter extends BaseAdapter implements Serializable {
-    private List<SubjectDTO> listData;
+    private List<Subject> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public SubjectListAdapter(List<SubjectDTO> listData, Context context) {
+    public SubjectListAdapter(List<Subject> listData, Context context) {
         this.listData = listData;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -49,10 +51,10 @@ public class SubjectListAdapter extends BaseAdapter implements Serializable {
         } else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        SubjectDTO subject = this.listData.get(position);
+        Subject subject = this.listData.get(position);
         viewHolder.subjectNameView.setText(subject.getSubjectName());
         viewHolder.subjectUserCreatedView.setText(subject.getUserID());
-        viewHolder.subjectTimeCreatedView.setText(subject.getCreatedDate());
+        viewHolder.subjectTimeCreatedView.setText(subject.getCreatedDate().toString());
         return convertView;
     }
     static class ViewHolder{

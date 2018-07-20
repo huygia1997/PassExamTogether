@@ -6,23 +6,29 @@
     android:orientation="vertical">
     <TextView
         android:id="@+id/textView_subjectName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="273dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="25dp"
+        android:background="#c1f6f2d4"
+        android:gravity="center_vertical"
         android:text="Subject's name"
-        android:textSize="30dp"/>
+        android:textColor="#000000"
+        android:textSize="25dp" />
     <TextView
         android:id="@+id/textView_subjectUserCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User created"
-        android:textSize="20dp"
-        android:layout_below="@id/textView_subjectName"/>
+        android:layout_alignStart="@+id/textView_subjectName"
+        android:layout_below="@id/textView_subjectName"
+        android:text="create_by:"
+        android:textSize="15dp" />
+
     <TextView
         android:id="@+id/textView_subjectTimeCreated"
-        android:layout_below="@id/textView_subjectName"
-        android:layout_toRightOf="@id/textView_subjectUserCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time Created"
-        android:textSize="20dp"/>
+        android:layout_alignBottom="@+id/textView_subjectUserCreated"
+        android:layout_alignParentEnd="true"
+        android:text="Time"
+        android:textSize="10dp" />
 </RelativeLayout>

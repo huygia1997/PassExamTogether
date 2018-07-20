@@ -1,5 +1,7 @@
 package pet.project.pet.remote;
 
+import pet.project.pet.model.Subject;
+
 public class ApiUtils {
     public static final String BASE_UTL = "http://192.168.21.135/pet.com/";
 
@@ -19,5 +21,8 @@ public class ApiUtils {
         return RetrofitClient.getClient(BASE_UTL).create((AnswerService.class));
     }
 
+    public static SubjectService getSubjectService(){
+        return RetrofitClient.getClient(BASE_UTL).create((SubjectService.class));
+    }
 }
 

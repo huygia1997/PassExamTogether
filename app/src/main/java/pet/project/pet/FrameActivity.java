@@ -23,8 +23,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,17 +34,21 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import pet.project.pet.model.Group;
+import pet.project.pet.model.Subject;
 import pet.project.pet.remote.ApiUtils;
 import pet.project.pet.remote.AsynTaskLoadData;
 import pet.project.pet.remote.GroupService;
+import pet.project.pet.remote.SubjectService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FrameActivity extends AppCompatActivity {
+public class FrameActivity extends AppCompatActivity{
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private ViewPager pager;
@@ -52,7 +58,10 @@ public class FrameActivity extends AppCompatActivity {
     private Dialog dialog;
     GroupService groupService;
     private List<Group> groups;
-
+    private List<Subject> subjects;
+    private SubjectService subjectService;
+    Spinner subCode;
+    EditText groupName, groupPassword, groupConfirmPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +71,18 @@ public class FrameActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        groups = getAllGroups();
+//        groupName = (EditText) findViewById(R.id.txt_group_name);
+//        groupPassword = (EditText) findViewById(R.id.txt_group_pass);
+//        groupConfirmPassword = (EditText) findViewById(R.id.txt_group_confirmpassword);
+//        subCode = (Spinner) findViewById(R.id.spnr_Subject);
 
+
+        groupService = ApiUtils.getGroupService();
+        groups = getAllGroups();
         addControl(groups);
+
+        subjectService = ApiUtils.getSubjectService();
+        subjects = getAllSubject();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -110,27 +128,39 @@ public class FrameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog = new Dialog(FrameActivity.this);
                 dialog.setContentView(R.layout.dialog_creating_group);
+                groupName = (EditText) dialog.findViewById(R.id.txt_group_name);
+                groupPassword = (EditText) dialog.findViewById(R.id.txt_group_pass);
+                groupConfirmPassword = (EditText) dialog.findViewById(R.id.txt_group_confirmpassword);
                 spnr_Subject = (Spinner) dialog.findViewById(R.id.spnr_Subject);
-                List<String> dataSrc = new ArrayList<>();
-                dataSrc.add("SWD ");
-                dataSrc.add("PRM321");
-                dataSrc.add("HCI");
+                final List<String> dataSrc = new ArrayList<>();
+
+                for (Subject x : subjects) {
+                    dataSrc.add(x.getSubCode());
+                }
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(FrameActivity.this, android.R.layout.simple_spinner_item, dataSrc);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spnr_Subject.setAdapter(dataAdapter);
                 dialog.show();
 
                 Button btn_submit_create_group = (Button) dialog.findViewById(R.id.btn_submit_create_group);
+
+
+
                 btn_submit_create_group.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // sau khi nhan submit tao group
+                        String nameNewGroup = groupName.getText().toString();
+                        String subjectNewGroup = spnr_Subject.getSelectedItem().toString();
+                        String passwordNewGroup = groupPassword.getText().toString();
+                        String confirmPasswordNewGroup = groupConfirmPassword.getText().toString();
+                        //Call<Group> call = groupService.createGroup();
+                        Toast.makeText(FrameActivity.this, nameNewGroup + "-" + subjectNewGroup + "-" +
+                                passwordNewGroup + "-" + confirmPasswordNewGroup, Toast.LENGTH_SHORT).show();
                     }
                 });
 
             }
         });
-
 
 
     }
@@ -141,7 +171,6 @@ public class FrameActivity extends AppCompatActivity {
 //        inflater.inflate(R.menu.navigation_menu, menu);
 //        return true;
 //    }
-
 
     private void addControl(List<Group> groups) {
         pager = (ViewPager) findViewById(R.id.view_pager);
@@ -162,7 +191,7 @@ public class FrameActivity extends AppCompatActivity {
     }
 
     private List<Group> getAllGroups() {
-        groupService = ApiUtils.getGroupService();
+
         List<Group> groupsList = null;
         Call<List<Group>> call = groupService.getAllGroups();
         try {
@@ -172,4 +201,17 @@ public class FrameActivity extends AppCompatActivity {
         }
         return groupsList;
     }
+
+    private List<Subject> getAllSubject() {
+        List<Subject> subjectList = null;
+        Call<List<Subject>> call = subjectService.getAllSubjects();
+        try {
+            subjectList = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return subjectList;
+    }
+
+
 }

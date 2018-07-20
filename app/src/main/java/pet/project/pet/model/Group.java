@@ -18,9 +18,18 @@ public class Group implements Serializable {
     public Group() {
     }
 
-    public Group(String groupName, int subId, String password, int userId, int totalQuestions, Date createdDate, Date updatedDate, boolean active, Date closedDate) {
+    public Group(int groupId, String password, int userId, int totalQuestions, Date createdDate, Date updatedDate, boolean active) {
+        this.groupId = groupId;
+        this.password = password;
+        this.userId = userId;
+        this.totalQuestions = totalQuestions;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+        this.active = active;
+    }
+
+    public Group(String groupName, String password, int userId, int totalQuestions, Date createdDate, Date updatedDate, boolean active, Date closedDate) {
         this.groupName = groupName;
-        this.subId = subId;
         this.password = password;
         this.userId = userId;
         this.totalQuestions = totalQuestions;

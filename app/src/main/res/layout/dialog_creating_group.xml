@@ -32,19 +32,6 @@
         android:layout_height="13dp"
         android:background="?android:attr/listDivider" />
 
-    <EditText
-        android:id="@+id/txtDesciption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Description"
-        android:inputType="textPersonName" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="13dp"
-        android:background="?android:attr/listDivider" />
 
     <Spinner
         android:id="@+id/spnr_Subject"
@@ -70,7 +57,19 @@
         android:layout_width="match_parent"
         android:layout_height="33dp"
         android:background="?android:attr/listDivider" />
+    <EditText
+        android:id="@+id/txt_group_confirmpassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Confirm password"
+        android:inputType="textPersonName" />
 
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="?android:attr/listDivider" />
     <Button
         android:id="@+id/btn_submit_create_group"
         android:layout_width="match_parent"

@@ -1,30 +1,33 @@
-package pet.project.pet;
+package pet.project.pet.model;
 
 import java.io.Serializable;
 import java.sql.Date;
 
-public class SubjectDTO implements Serializable {
-    private String subjectID;
+public class Subject implements Serializable {
+    private int subjectID;
     private String subjectName;
-    private String userID;
-    private String createdDate;
+    private int userID;
+    private Date createdDate;
     private Date updatedDate;
     private boolean active;
     private Date closedDate;
+    private String subCode;
 
-    public SubjectDTO(String subjectID, String subjectName, String userID, String createdDate, boolean active) {
-        this.subjectID = subjectID;
+    public Subject(String subjectName, int userID, Date createdDate, Date updatedDate, boolean active, Date closedDate, String subCode) {
         this.subjectName = subjectName;
         this.userID = userID;
         this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
         this.active = active;
+        this.closedDate = closedDate;
+        this.subCode = subCode;
     }
 
-    public String getSubjectID() {
+    public int getSubjectID() {
         return subjectID;
     }
 
-    public void setSubjectID(String subjectID) {
+    public void setSubjectID(int subjectID) {
         this.subjectID = subjectID;
     }
 
@@ -36,19 +39,19 @@ public class SubjectDTO implements Serializable {
         this.subjectName = subjectName;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -74,5 +77,13 @@ public class SubjectDTO implements Serializable {
 
     public void setClosedDate(Date closedDate) {
         this.closedDate = closedDate;
+    }
+
+    public String getSubCode() {
+        return subCode;
+    }
+
+    public void setSubCode(String subCode) {
+        this.subCode = subCode;
     }
 }
