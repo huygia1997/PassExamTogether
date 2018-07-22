@@ -7,17 +7,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
 import pet.project.pet.model.Subject;
+import pet.project.pet.model.User;
+import pet.project.pet.remote.ApiUtils;
+import pet.project.pet.remote.UserService;
+import retrofit2.Call;
 
 public class SubjectListAdapter extends BaseAdapter implements Serializable {
     private List<Subject> listData;
     private LayoutInflater layoutInflater;
     private Context context;
-
     public SubjectListAdapter(List<Subject> listData, Context context) {
         this.listData = listData;
         this.context = context;
@@ -53,8 +57,11 @@ public class SubjectListAdapter extends BaseAdapter implements Serializable {
         }
         Subject subject = this.listData.get(position);
         viewHolder.subjectNameView.setText(subject.getSubName());
-        viewHolder.subjectUserCreatedView.setText(subject.getUserId());
-        viewHolder.subjectTimeCreatedView.setText(subject.getCreatedDate().toString());
+
+        viewHolder.subjectUserCreatedView.setText(subject.getUserId() + "");
+        if(subject.getCreatedDate()!=null){
+            viewHolder.subjectTimeCreatedView.setText(subject.getCreatedDate().toString());
+        }
         return convertView;
     }
     static class ViewHolder{

@@ -48,7 +48,6 @@ public class FrameActivity extends AppCompatActivity {
     private ViewPager pager;
     private TabLayout tabLayout;
     private Spinner spnr_Subject;
-    Button btn_Create_Group;
     private Dialog dialog;
     GroupService groupService;
     private List<Group> groups;
@@ -70,10 +69,11 @@ public class FrameActivity extends AppCompatActivity {
 
         groupService = ApiUtils.getGroupService();
         groups = getAllGroups();
-        addControl(groups);
 
         subjectService = ApiUtils.getSubjectService();
         subjects = getAllSubject();
+
+        addControl(groups, subjects);
 
         userService = ApiUtils.getUserService();
         currentUserRoleId = getCurrentUserRoleId();
@@ -226,11 +226,11 @@ public class FrameActivity extends AppCompatActivity {
         }
     }
 
-    private void addControl(List<Group> groups) {
+    private void addControl(List<Group> groups, List<Subject> subjects) {
         pager = (ViewPager) findViewById(R.id.view_pager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-        PagerAdapter adapter = new PagerAdapter(manager, groups);
+        PagerAdapter adapter = new PagerAdapter(manager, groups, subjects);
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

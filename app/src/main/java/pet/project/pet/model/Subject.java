@@ -11,9 +11,8 @@ public class Subject implements Serializable {
     private Date updatedDate;
     private boolean active;
     private Date closedDate;
-    private String subCode;
 
-    public Subject(int subId, String subName, int userId, Date createdDate, Date updatedDate, boolean active, Date closedDate, String subCode) {
+    public Subject(int subId, String subName, int userId, Date createdDate, Date updatedDate, boolean active, Date closedDate) {
         this.subId = subId;
         this.subName = subName;
         this.userId = userId;
@@ -21,17 +20,15 @@ public class Subject implements Serializable {
         this.updatedDate = updatedDate;
         this.active = active;
         this.closedDate = closedDate;
-        this.subCode = subCode;
     }
 
-    public Subject(String subName, int userId, Date createdDate, Date updatedDate, boolean active, Date closedDate, String subCode) {
+    public Subject(String subName, int userId, Date createdDate, Date updatedDate, boolean active, Date closedDate) {
         this.subName = subName;
         this.userId = userId;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.active = active;
         this.closedDate = closedDate;
-        this.subCode = subCode;
     }
 
     public int getSubId() {
@@ -88,18 +85,5 @@ public class Subject implements Serializable {
 
     public void setClosedDate(Date closedDate) {
         this.closedDate = closedDate;
-    }
-
-    public String getSubCode() {
-        return subCode;
-    }
-
-    public void setSubCode(String subCode) {
-        this.subCode = subCode;
-    }
-
-    @Override
-    public String toString() {
-        return subCode;
     }
 }

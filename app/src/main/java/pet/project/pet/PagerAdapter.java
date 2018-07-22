@@ -13,21 +13,22 @@ import pet.project.pet.fragment.GroupFragment;
 import pet.project.pet.fragment.RecentFragment;
 import pet.project.pet.fragment.SubjectFragment;
 import pet.project.pet.model.Group;
+import pet.project.pet.model.Subject;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private ArrayList<Group> groups = new ArrayList<Group>();
-
+    private ArrayList<Subject> subjects = new ArrayList<Subject>();
 //    PagerAdapter(FragmentManager fragmentManager) {
 //        super(fragmentManager);
 //    }
 
-    PagerAdapter(FragmentManager fragmentManager, List<Group> groups) {
+    PagerAdapter(FragmentManager fragmentManager, List<Group> groups, List<Subject> subjects) {
         super(fragmentManager);
 
         this.groups.addAll(groups);
-
-
+        this.subjects.addAll(subjects);
     }
+
 
 
     @Override
@@ -45,6 +46,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 break;
             case 2:
                 frag = new SubjectFragment();
+                Bundle newBundle = new Bundle();
+                newBundle.putSerializable("subjectList",this.subjects);
+                frag.setArguments(newBundle);
                 break;
         }
         return frag;
