@@ -1,4 +1,4 @@
-package pet.project.pet;
+package pet.project.pet.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
+import pet.project.pet.R;
 import pet.project.pet.model.Subject;
 import pet.project.pet.model.User;
 import pet.project.pet.remote.ApiUtils;
@@ -50,7 +51,7 @@ public class SubjectListAdapter extends BaseAdapter implements Serializable {
             viewHolder = new ViewHolder();
             viewHolder.subjectNameView = (TextView) convertView.findViewById(R.id.textView_subjectName);
             viewHolder.subjectUserCreatedView = (TextView) convertView.findViewById(R.id.textView_subjectUserCreated);
-            viewHolder.subjectTimeCreatedView = (TextView) convertView.findViewById(R.id.textView_subjectTimeCreated);
+            //viewHolder.subjectTimeCreatedView = (TextView) convertView.findViewById(R.id.textView_subjectTimeCreated);
             convertView.setTag(viewHolder);
         } else{
             viewHolder = (ViewHolder) convertView.getTag();

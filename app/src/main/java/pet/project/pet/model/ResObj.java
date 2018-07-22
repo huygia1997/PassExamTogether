@@ -6,6 +6,15 @@ public class ResObj {
     private boolean message;
     private int currentUserId;
     private int currentUserRoleId;
+    private int voteStatus;
+
+    public int getVoteStatus() {
+        return voteStatus;
+    }
+
+    public void setVoteStatus(int voteStatus) {
+        this.voteStatus = voteStatus;
+    }
 
     public int getCurrentUserRoleId() {
         return currentUserRoleId;

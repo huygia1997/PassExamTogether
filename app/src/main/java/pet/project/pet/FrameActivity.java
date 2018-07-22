@@ -1,12 +1,7 @@
 package pet.project.pet;
 
 import android.app.Dialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.StrictMode;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -24,13 +19,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import pet.project.pet.fragment.GroupFragment;
 import pet.project.pet.model.Group;
 import pet.project.pet.model.ResObj;
 import pet.project.pet.model.Subject;

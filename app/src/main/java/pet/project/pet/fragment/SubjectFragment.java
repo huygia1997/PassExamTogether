@@ -7,13 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import pet.project.pet.R;
-import pet.project.pet.SubjectListAdapter;
+import pet.project.pet.adapter.SubjectListAdapter;
 import pet.project.pet.model.Subject;
-import pet.project.pet.remote.ApiUtils;
 
 public class SubjectFragment extends Fragment {
 

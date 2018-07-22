@@ -1,46 +1,29 @@
 package pet.project.pet.fragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.Serializable;
-import java.security.acl.Group;
-import java.util.ArrayList;
 import java.util.List;
 
-import pet.project.pet.FrameActivity;
 import pet.project.pet.GroupActivity;
-import pet.project.pet.GroupDTO;
-import pet.project.pet.GroupListAdapter;
-import pet.project.pet.LoginActivity;
-import pet.project.pet.QuestionActivity;
+import pet.project.pet.adapter.GroupListAdapter;
 import pet.project.pet.R;
 import pet.project.pet.model.GroupParticipant;
-import pet.project.pet.model.Question;
 import pet.project.pet.model.ResObj;
 import pet.project.pet.remote.ApiUtils;
 import pet.project.pet.remote.GroupParticipantService;
-import pet.project.pet.remote.QuestionService;
-import pet.project.pet.remote.UserService;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class GroupFragment extends Fragment {
     private EditText txt_group_password;

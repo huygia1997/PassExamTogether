@@ -1,4 +1,4 @@
-package pet.project.pet;
+package pet.project.pet.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import pet.project.pet.R;
 import pet.project.pet.model.Group;
 
 public class GroupListAdapter extends BaseAdapter {
@@ -33,7 +34,7 @@ public class GroupListAdapter extends BaseAdapter {
             holder.groupName = (TextView) convertView.findViewById(R.id.textView_groupName);
             holder.groupOwner = (TextView) convertView.findViewById(R.id.textView_groupOwner);
             holder.tagView = (TextView) convertView.findViewById(R.id.textView_tag);
-            holder.timeCreatedView = (TextView) convertView.findViewById(R.id.textView_timeCreated);
+            //holder.timeCreatedView = (TextView) convertView.findViewById(R.id.textView_timeCreated);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

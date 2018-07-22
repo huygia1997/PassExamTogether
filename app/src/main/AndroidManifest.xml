@@ -27,7 +27,6 @@
         <activity android:name=".QuestionActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".GroupSubjectActivity" />
         <activity android:name=".AccountActivity"></activity>
     </application>
 

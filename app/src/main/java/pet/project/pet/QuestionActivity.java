@@ -1,30 +1,23 @@
 package pet.project.pet;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Parcelable;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Scroller;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import pet.project.pet.adapter.AnswerListAdapter;
 import pet.project.pet.model.Answer;
 import pet.project.pet.model.Question;
 import pet.project.pet.model.ResObj;
@@ -33,7 +26,6 @@ import pet.project.pet.remote.ApiUtils;
 import pet.project.pet.remote.QuestionService;
 import pet.project.pet.sharedPrefApp.SharedPrefApp;
 import retrofit2.Call;
-import retrofit2.http.QueryName;
 
 public class QuestionActivity extends AppCompatActivity {
     AnswerService answerService;
@@ -67,15 +59,6 @@ public class QuestionActivity extends AppCompatActivity {
         btnQuestion_editQuestion = (Button) findViewById(R.id.btnQuestion_editQuestion);
         btnQuestion_submitAnswer = (Button) findViewById(R.id.btnQuestion_submitAnswer);
         txtQuestion_QuestionContent = (TextView)findViewById(R.id.txtQuestion_QuestionContent);
-        /*btn_Up = (Button)findViewById(R.id.btn_Up);
-        btn_Down = (Button) findViewById(R.id.btn_Down); */
-        
-        /*btn_Up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(QuestionActivity.this, "btnUp clicked!", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
         question = (Question) getIntent().getSerializableExtra("QuestionSelected");
         quesId = question.getQuesId();
@@ -89,9 +72,6 @@ public class QuestionActivity extends AppCompatActivity {
         } else {
             btnQuestion_editQuestion.setVisibility(View.GONE);
         }
-
-//        listAnswer = getListAnswer(quesId);
-//        listView_listAnswer.setAdapter(new AnswerListAdapter(listAnswer, this));
 
         questionService = ApiUtils.getQuestionService();
 
@@ -117,7 +97,9 @@ public class QuestionActivity extends AppCompatActivity {
                         String content = txt_edit_content.getText().toString();
 
                         if (validationEditQues(title, content)) {
-                            editQuestion(quesId, title, content);
+                            question.setTitle(title);
+                            question.setContent(content);
+                            editQuestion(question);
                             Toast.makeText(QuestionActivity.this, "successfully", Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(getIntent());
@@ -159,27 +141,19 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
 
+        int userId = sharedPrefApp.getCurrentUserId(getApplicationContext());
 
         answers = getAnswersByQuestion(quesId);
-        listView_listAnswer.setAdapter(new AnswerListAdapter(answers, this));
+        listView_listAnswer.setAdapter(new AnswerListAdapter(answers, this, userId));
 
         txtQuestion_QuestionTitle.setText(question.getTitle());
+        txtQuestion_QuestionContent.setText(question.getContent());
         if (question.getDisplayName() == null || question.getDisplayName() == "" || question.getDisplayName().isEmpty()) {
             txtQuestion_QuestionOwner.setText(question.getUsername());
         } else {
             txtQuestion_QuestionOwner.setText(question.getDisplayName());
         }
 
-    }
-
-    /*public void clickToUpVote(View view) {
-        //Toast.makeText(this, "up click", Toast.LENGTH_SHORT).show();
-       *//* selectedAnswer = (Answer) listView_listAnswer.getSelectedItem();
-        Toast.makeText(this, selectedAnswer.getContent(), Toast.LENGTH_SHORT).show();*//*
-    }*/
-
-    public void clickToDownVote(View view) {
-        Toast.makeText(this, "douwn click", Toast.LENGTH_SHORT).show();
     }
 
     private boolean validationEditQues(String title, String content) {
@@ -204,7 +178,7 @@ public class QuestionActivity extends AppCompatActivity {
         return true;
     }
 
-    private void editQuestion(int quesId, String title, String content) {
+    /*private void editQuestion(int quesId, String title, String content) {
         Question question = new Question(quesId, title, content, true);
         Call<ResObj> call = questionService.updateQuestion(question);
         try {
@@ -212,7 +186,7 @@ public class QuestionActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private void editQuestion(Question question) {
         Call<ResObj> call = questionService.updateQuestion(question);

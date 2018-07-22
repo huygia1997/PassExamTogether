@@ -1,4 +1,4 @@
-package pet.project.pet;
+package pet.project.pet.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.io.Serializable;
 import java.util.List;
 
+import pet.project.pet.R;
 import pet.project.pet.model.Question;
 
 public class QuestionListAdapter extends BaseAdapter implements Serializable {

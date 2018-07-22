@@ -23,12 +23,12 @@
         android:text="create_by:"
         android:textSize="15dp" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textView_subjectTimeCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView_subjectUserCreated"
         android:layout_alignParentEnd="true"
         android:text="Time"
-        android:textSize="10dp" />
+        android:textSize="10dp" />-->
 </RelativeLayout>

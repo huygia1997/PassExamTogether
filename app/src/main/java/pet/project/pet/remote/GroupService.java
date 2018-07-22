@@ -12,7 +12,7 @@ import retrofit2.http.Path;
 
 public interface GroupService {
 
-    @GET("api/group/getAllGroups")
+    @GET("api/group/getAllActiveGroups")
     Call<List<Group>> getAllGroups();
 
     @POST("api/group/createGroup")
