@@ -4,18 +4,19 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Subject implements Serializable {
-    private int subjectID;
-    private String subjectName;
-    private int userID;
+    private int subId;
+    private String subName;
+    private int userId;
     private Date createdDate;
     private Date updatedDate;
     private boolean active;
     private Date closedDate;
     private String subCode;
 
-    public Subject(String subjectName, int userID, Date createdDate, Date updatedDate, boolean active, Date closedDate, String subCode) {
-        this.subjectName = subjectName;
-        this.userID = userID;
+    public Subject(int subId, String subName, int userId, Date createdDate, Date updatedDate, boolean active, Date closedDate, String subCode) {
+        this.subId = subId;
+        this.subName = subName;
+        this.userId = userId;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.active = active;
@@ -23,28 +24,38 @@ public class Subject implements Serializable {
         this.subCode = subCode;
     }
 
-    public int getSubjectID() {
-        return subjectID;
+    public Subject(String subName, int userId, Date createdDate, Date updatedDate, boolean active, Date closedDate, String subCode) {
+        this.subName = subName;
+        this.userId = userId;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+        this.active = active;
+        this.closedDate = closedDate;
+        this.subCode = subCode;
     }
 
-    public void setSubjectID(int subjectID) {
-        this.subjectID = subjectID;
+    public int getSubId() {
+        return subId;
     }
 
-    public String getSubjectName() {
-        return subjectName;
+    public void setSubId(int subId) {
+        this.subId = subId;
     }
 
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
+    public String getSubName() {
+        return subName;
     }
 
-    public int getUserID() {
-        return userID;
+    public void setSubName(String subName) {
+        this.subName = subName;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public Date getCreatedDate() {
@@ -85,5 +96,10 @@ public class Subject implements Serializable {
 
     public void setSubCode(String subCode) {
         this.subCode = subCode;
+    }
+
+    @Override
+    public String toString() {
+        return subCode;
     }
 }

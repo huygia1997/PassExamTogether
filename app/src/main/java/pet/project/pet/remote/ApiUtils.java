@@ -24,5 +24,9 @@ public class ApiUtils {
     public static SubjectService getSubjectService(){
         return RetrofitClient.getClient(BASE_UTL).create((SubjectService.class));
     }
+
+    public static GroupParticipantService getGroupParticipantService(){
+        return RetrofitClient.getClient(BASE_UTL).create((GroupParticipantService.class));
+    }
 }
 

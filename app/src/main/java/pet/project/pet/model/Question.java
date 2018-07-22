@@ -16,7 +16,48 @@ public class Question implements Serializable{
     private boolean approvedAnswer;
     private boolean active;
     private Date closedDate;
+    private String username;
+    private String displayName;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public Question(int userId, int groupId, int subId, String title, String content, int totalAnswers, boolean approvedAnswer, boolean active) {
+        this.userId = userId;
+        this.groupId = groupId;
+        this.subId = subId;
+        this.title = title;
+        this.content = content;
+        this.totalAnswers = totalAnswers;
+        this.approvedAnswer = approvedAnswer;
+        this.active = active;
+    }
+
+    public Question(int quesId, String title, String content, boolean active) {
+        this.quesId = quesId;
+        this.title = title;
+        this.content = content;
+        this.active = active;
+    }
+
+    public Question(int quesId, String title, String content) {
+        this.quesId = quesId;
+        this.title = title;
+        this.content = content;
+    }
 
     public Question(int userId, int groupId, int subId, String title, String content, int totalAnswers, Date createdDate, Date updatedDate, boolean approvedAnswer, boolean active, Date closedDate) {
         this.userId = userId;

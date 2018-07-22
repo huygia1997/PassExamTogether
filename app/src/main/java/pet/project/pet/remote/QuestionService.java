@@ -18,4 +18,10 @@ public interface QuestionService  {
             @Path("groupId") int groupId
     );
 
+    @POST("api/question/createQuestion")
+    Call<ResObj> createQuestion(@Body Question question);
+
+    @POST("api/question/updateQuestion")
+    Call<ResObj> updateQuestion(@Body Question question);
+
 }

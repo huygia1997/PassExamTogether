@@ -53,9 +53,17 @@ public class QuestionListAdapter extends BaseAdapter implements Serializable {
             holder = (ViewHolder) convertView.getTag();
         }
         Question question = this.listData.get(position);
-        holder.numberAnswerView.setText(question.getTotalAnswers() + "");
+        holder.numberAnswerView.setText(question.getTotalAnswers()+ "");
         holder.questionTitleView.setText(question.getTitle());
-        holder.questionCreatedByView.setText(question.getUserId() + "");
+
+        String createdUser = "";
+        if (question.getDisplayName() == null || question.getDisplayName().isEmpty() || question.getDisplayName() == ""){
+            createdUser = question.getUsername();
+        } else {
+            createdUser = question.getDisplayName();
+        }
+        holder.questionCreatedByView.setText(createdUser);
+
         holder.questionTagView.setText(question.getSubId() + "");
         return convertView;
     }

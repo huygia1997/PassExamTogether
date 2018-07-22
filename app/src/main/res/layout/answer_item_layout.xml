@@ -31,7 +31,7 @@
         android:gravity="center_vertical"
         android:text="Answer content"
         android:textColor="#000000"
-        android:textSize="25dp" />
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/textView_userCommentID"
@@ -48,7 +48,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/textView_answerContent"
         android:layout_marginStart="24dp"
-        app:srcCompat="@android:drawable/arrow_up_float" />
+        app:srcCompat="@android:drawable/arrow_up_float"
+        />
 
     <ImageButton
         android:id="@+id/btn_Down"
@@ -57,6 +58,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/btn_Up"
         android:layout_marginTop="112dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        app:srcCompat="@android:drawable/arrow_down_float"
+        android:onClick="clickToDownVote"/>
 
 </RelativeLayout>

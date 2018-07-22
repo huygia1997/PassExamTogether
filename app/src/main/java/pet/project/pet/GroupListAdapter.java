@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import java.util.List;
 
 import pet.project.pet.model.Group;
@@ -25,7 +26,7 @@ public class GroupListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if(convertView ==null){
+        if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.group_item_layout, null);
             holder = new ViewHolder();
             holder.numberQuestion = (TextView) convertView.findViewById(R.id.textView_numberQuestion);
@@ -34,17 +35,26 @@ public class GroupListAdapter extends BaseAdapter {
             holder.tagView = (TextView) convertView.findViewById(R.id.textView_tag);
             holder.timeCreatedView = (TextView) convertView.findViewById(R.id.textView_timeCreated);
             convertView.setTag(holder);
-        } else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         Group group = this.listData.get(position);
         holder.numberQuestion.setText(group.getTotalQuestions() + "");
         holder.groupName.setText(group.getGroupName());
-        holder.groupOwner.setText(group.getUserId() + "");
+        String ownerName = "";
+        if (group.getDisplayName().isEmpty() || group.getDisplayName() == null || group.getDisplayName() == "") {
+            ownerName = group.getUsername();
+        } else {
+            ownerName = group.getDisplayName();
+        }
+        holder.groupOwner.setText(ownerName);
         holder.tagView.setText(group.getSubId() + "");
-        holder.timeCreatedView.setText(group.getCreatedDate() + "");
+        if (group.getCreatedDate() != null) {
+            holder.timeCreatedView.setText(group.getCreatedDate() + "");
+        }
         return convertView;
     }
+
     @Override
     public int getCount() {
         return listData.size();
@@ -61,8 +71,7 @@ public class GroupListAdapter extends BaseAdapter {
     }
 
 
-
-    static class ViewHolder{
+    static class ViewHolder {
         TextView numberQuestion;
         TextView groupName;
         TextView groupOwner;

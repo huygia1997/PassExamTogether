@@ -1,7 +1,7 @@
 package pet.project.pet.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class Group implements Serializable {
     private int groupId;
@@ -14,6 +14,47 @@ public class Group implements Serializable {
     private Date updatedDate;
     private boolean active;
     private Date closedDate;
+    private String username;
+    private String displayName;
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Group(String groupName, int subId, String password, int userId, int totalQuestions, boolean active) {
+        this.groupName = groupName;
+        this.subId = subId;
+        this.password = password;
+        this.userId = userId;
+        this.totalQuestions = totalQuestions;
+        this.active = active;
+    }
+
+    public Group(String groupName, int subId, String password, int userId, int totalQuestions, Date createdDate, boolean active) {
+        this.groupName = groupName;
+        this.subId = subId;
+        this.password = password;
+        this.userId = userId;
+        this.totalQuestions = totalQuestions;
+        this.createdDate = createdDate;
+        this.active = active;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
     public Group() {
     }
@@ -91,9 +132,7 @@ public class Group implements Serializable {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+
 
     public Date getUpdatedDate() {
         return updatedDate;

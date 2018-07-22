@@ -52,8 +52,8 @@ public class SubjectListAdapter extends BaseAdapter implements Serializable {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Subject subject = this.listData.get(position);
-        viewHolder.subjectNameView.setText(subject.getSubjectName());
-        viewHolder.subjectUserCreatedView.setText(subject.getUserID());
+        viewHolder.subjectNameView.setText(subject.getSubName());
+        viewHolder.subjectUserCreatedView.setText(subject.getUserId());
         viewHolder.subjectTimeCreatedView.setText(subject.getCreatedDate().toString());
         return convertView;
     }

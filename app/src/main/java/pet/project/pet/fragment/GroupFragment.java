@@ -1,5 +1,6 @@
 package pet.project.pet.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,9 +31,11 @@ import pet.project.pet.GroupListAdapter;
 import pet.project.pet.LoginActivity;
 import pet.project.pet.QuestionActivity;
 import pet.project.pet.R;
+import pet.project.pet.model.GroupParticipant;
 import pet.project.pet.model.Question;
 import pet.project.pet.model.ResObj;
 import pet.project.pet.remote.ApiUtils;
+import pet.project.pet.remote.GroupParticipantService;
 import pet.project.pet.remote.QuestionService;
 import pet.project.pet.remote.UserService;
 import retrofit2.Call;
@@ -38,6 +43,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GroupFragment extends Fragment {
+    private EditText txt_group_password;
+    private Button btn_group_login;
+    private pet.project.pet.model.Group groupSelected;
+    GroupParticipantService groupParticipantService;
 
     public GroupFragment() {
         // Required empty public constructor
@@ -50,25 +59,58 @@ public class GroupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View rootView = inflater.inflate(R.layout.fragment_group, container, false);
         List<pet.project.pet.model.Group> groupList = (List<pet.project.pet.model.Group>) getArguments().getSerializable("groupList");
 
-//        List<GroupDTO> list = getListData();
-
+        groupParticipantService = ApiUtils.getGroupParticipantService();
         final ListView listView = (ListView) rootView.findViewById(R.id.listGroup);
         final GroupListAdapter groupAdapt = new GroupListAdapter(groupList, getActivity());
         listView.setAdapter(groupAdapt);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                pet.project.pet.model.Group groupSelected = (pet.project.pet.model.Group) listView.getAdapter().getItem(position);
-                /*getQuestionsDataById(groupSelected.getGroupId());*/
-//                Toast.makeText(getActivity(), groupSelected.getGroupId() + "", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(),GroupActivity.class);
-                intent.putExtra("GroupId", groupSelected.getGroupId());
-                getActivity().startActivity(intent);
+                groupSelected = (pet.project.pet.model.Group) listView.getAdapter().getItem(position);
+
+
+                //check selected group is public?
+                if (!(groupSelected.getPassword() == null || groupSelected.getPassword().isEmpty() || groupSelected.getPassword() == "")) {
+                    //Create a dialog to input pass and compare with groupSelected.getPassword()
+
+                    //check user login group yet
+                    if (!checkParticipantInGroup(groupSelected.getGroupId(), groupSelected.getUserId())) {
+                        final Dialog dialog = new Dialog(getContext());
+                        dialog.setContentView(R.layout.dialog_group_password);
+                        txt_group_password = (EditText) dialog.findViewById(R.id.txt_group_password);
+                        btn_group_login = (Button) dialog.findViewById(R.id.btn_group_login);
+
+                        dialog.show();
+
+                        btn_group_login.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (txt_group_password.getText().toString().compareTo(groupSelected.getPassword()) == 0) {
+                                    Intent intent = new Intent(getActivity(), GroupActivity.class);
+                                    intent.putExtra("GroupId", groupSelected.getGroupId());
+                                    GroupParticipant participant = new GroupParticipant(groupSelected.getGroupId(), groupSelected.getUserId());
+                                    addUserToGroupParticipant(participant);
+                                    getActivity().startActivity(intent);
+                                    dialog.dismiss();
+                                } else {
+                                    Toast.makeText(getContext(), "Password is not correct!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                        });
+                    } else {
+                        Intent intent = new Intent(getActivity(), GroupActivity.class);
+                        intent.putExtra("GroupId", groupSelected.getGroupId());
+                        getActivity().startActivity(intent);
+                    }
+                } else {
+                    Intent intent = new Intent(getActivity(), GroupActivity.class);
+                    intent.putExtra("GroupId", groupSelected.getGroupId());
+                    getActivity().startActivity(intent);
+                }
             }
         });
 
@@ -76,52 +118,26 @@ public class GroupFragment extends Fragment {
         return rootView;
     }
 
-    /*private void getQuestionsDataById(final int id) {
-        questionService = ApiUtils.getQuestionService();
-        Call<List<Question>> call = questionService.getQuestionById(id);
-        List<Question> questionList = null;
+    private boolean checkParticipantInGroup(int groupId, int userId) {
+        Call<ResObj> call = groupParticipantService.checkParticipantInGroup(groupId, userId);
+        ResObj resObj = null;
         try {
-                questionList = call.execute().body();
+            resObj = call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        *//*call.enqueue(new Callback<List<Question>>() {
-            @Override
-            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
-                if (response.isSuccessful()) {
-                    Intent intent = new Intent(getActivity(), GroupActivity.class);
-                    try {
-                        intent.putExtra("dataPass", (Serializable) call.execute().body());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        return resObj.isMessage();
+    }
 
-                    startActivity(intent);
-                    *//**//*ResObj resObj = response.body();
-                    if (resObj.isMessage()) {
-                        Intent intent = new Intent(getActivity(), GroupActivity.class);
-                        try {
-                            intent.putExtra("dataPass", (Serializable) call.execute().body());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getActivity(), "can't receive message!", Toast.LENGTH_SHORT).show();
-                    }*//**//*
-                } else {
-                    Toast.makeText(getActivity(), "Error! Please try again!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Question>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });*//*
-    }*/
-
+    private void addUserToGroupParticipant(GroupParticipant groupParticipant) {
+        Call<ResObj> call = groupParticipantService.addUserToGroupParticipant(groupParticipant);
+        ResObj resObj = null;
+        try {
+            resObj = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

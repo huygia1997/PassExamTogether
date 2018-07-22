@@ -21,6 +21,7 @@ import pet.project.pet.model.ResObj;
 import pet.project.pet.model.User;
 import pet.project.pet.remote.ApiUtils;
 import pet.project.pet.remote.UserService;
+import pet.project.pet.sharedPrefApp.SharedPrefApp;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,7 +31,12 @@ public class LoginActivity extends AppCompatActivity {
     EditText edtUsername, edtPassword;
     Button btnLogin;
     UserService userService;
+
     private boolean Logged = false;
+    private int currentUserId = -1, currentUserRoleId = -1;
+    private String LOGGED_ACCOUNT = "LOGGED_ACCOUNT";
+    private String IS_LOGGED = "IS_LOGGED";
+    private String USER_ID = "CURRENT_USER_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +71,30 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreferences sharedPreferences = getSharedPreferences("Account", Context.MODE_PRIVATE);
-        boolean isLogged = sharedPreferences.getBoolean("IS_LOGGED",false);
+        /*SharedPreferences sharedPreferences = getSharedPreferences(LOGGED_ACCOUNT, Context.MODE_PRIVATE);
+        boolean isLogged = sharedPreferences.getBoolean(IS_LOGGED, false);
         Logged = isLogged;
-        if(Logged){
+        if (Logged) {
             Intent intent = new Intent(this, FrameActivity.class);
             startActivity(intent);
             finish();
+        }*/
+
+        SharedPrefApp sharedPref;
+        sharedPref = SharedPrefApp.getInstance();
+        if (sharedPref.getISLogged_IN(getApplicationContext())) {
+            Intent NextScreen = new Intent(getApplicationContext(),
+                    FrameActivity.class);
+            startActivity(NextScreen);
+            finish();
         }
+        /*else{
+            Intent intent = new Intent(LoginActivity.this, FrameActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+
+        }*/
 
     }
 
@@ -97,10 +119,13 @@ public class LoginActivity extends AppCompatActivity {
                     ResObj resObj = response.body();
                     if (resObj.isMessage()) {
                         Logged = true;
-                        SharedPreferences sharedPreferences = getSharedPreferences("Account", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean("IS_LOGGED", Logged);
-                        editor.commit();
+                        currentUserId = resObj.getCurrentUserId();
+                        currentUserRoleId = resObj.getCurrentUserRoleId();
+
+                        SharedPrefApp sharedPref;
+                        sharedPref = SharedPrefApp.getInstance();
+
+                        sharedPref.saveISLogged_IN(getApplicationContext(), true, currentUserId, currentUserRoleId);
 
                         Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, FrameActivity.class);

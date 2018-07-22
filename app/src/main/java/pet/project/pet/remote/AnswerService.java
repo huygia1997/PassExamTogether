@@ -1,10 +1,14 @@
 package pet.project.pet.remote;
 
+import java.io.Serializable;
 import java.util.List;
 
 import pet.project.pet.model.Answer;
+import pet.project.pet.model.ResObj;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface AnswerService {
@@ -13,5 +17,8 @@ public interface AnswerService {
     Call<List<Answer>> getAnswersByQuestion (
             @Path ("quesId") int quesId
     );
+
+    @POST("api/answer/createAnswer")
+    Call<ResObj> createAnswer(@Body Answer answer);
 
 }

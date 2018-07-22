@@ -15,8 +15,47 @@ public class Answer implements Serializable {
     private Date approvedDate;
     private int approvedMentorId;
     private boolean active;
+    private String username;
+    private String displayName;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
     public Answer() {
+    }
+
+    public Answer(int userId, int quesId, String content, int totalVote, boolean active) {
+        this.userId = userId;
+        this.quesId = quesId;
+        this.content = content;
+        this.totalVote = totalVote;
+        this.active = active;
+    }
+
+    public Answer(int userId, int quesId, String content, boolean active) {
+        this.userId = userId;
+        this.quesId = quesId;
+        this.content = content;
+        this.active = active;
+    }
+
+    public Answer(int userId, int quesId, String content) {
+        this.userId = userId;
+        this.quesId = quesId;
+        this.content = content;
     }
 
     public int getAnsId() {
