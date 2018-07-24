@@ -23,4 +23,5 @@ public interface GroupService {
 
     @POST("api/group/updateGroup")
     Call<ResObj> updateGroup(@Body Group group);
+
 }

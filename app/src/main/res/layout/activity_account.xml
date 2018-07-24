@@ -37,13 +37,14 @@
     //password
 
     <EditText
-        android:id="@+id/edtEditPassword"
+        android:id="@+id/edtEditUserPassword"
         android:layout_width="287dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:hint="Password"
+        android:inputType="textPassword"
         android:theme="@android:style/Widget.Material.Light.EditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
@@ -53,24 +54,40 @@
 
     //confirm password
 
+    <EditText
+        android:id="@+id/edtEditUserConfrimPassword"
+        android:layout_width="287dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:hint="ConfirmPassword"
+        android:inputType="textPassword"
+        android:theme="@android:style/Widget.Material.Light.EditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtEditUserPassword" />
+
+
     //role
 
     <EditText
-        android:id="@+id/edtEditDisplayName"
+        android:id="@+id/edtEditUserDisplayName"
         android:layout_width="287dp"
         android:layout_height="44dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="36dp"
         android:hint="Display Name"
         android:theme="@android:style/Widget.Material.Light.EditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtEditPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/edtEditUserConfrimPassword" />
 
     <CheckBox
-        android:id="@+id/chkEditTuitor"
+        android:id="@+id/chkEditUserTuitor"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
@@ -79,11 +96,11 @@
         android:text="Tuitor?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtEditDisplayName" />
+        app:layout_constraintTop_toBottomOf="@+id/edtEditUserDisplayName" />
     //display name
 
     <Button
-        android:id="@+id/btnEdit"
+        android:id="@+id/btnEditUser"
         android:layout_width="167dp"
         android:layout_height="36dp"
         android:layout_marginBottom="8dp"
@@ -97,7 +114,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chkEditTuitor" />
+        app:layout_constraintTop_toBottomOf="@+id/chkEditTuitor"
+        app:layout_constraintVertical_bias="0.323" />
     //avatar
     //total point = 0
 

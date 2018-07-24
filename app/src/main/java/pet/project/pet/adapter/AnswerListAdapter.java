@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,11 +35,13 @@ public class AnswerListAdapter extends BaseAdapter implements Serializable {
     AnswerService answerService;
     VoteService voteService;
     private int userId;
+    private int userRoleId;
 
-    public AnswerListAdapter(List<Answer> listData, Context context, int userId) {
+    public AnswerListAdapter(List<Answer> listData, Context context, int userId, int userRoleId) {
         this.listData = listData;
         this.context = context;
         this.userId = userId;
+        this.userRoleId = userRoleId;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -82,6 +86,7 @@ public class AnswerListAdapter extends BaseAdapter implements Serializable {
             holder.userCommentID = (TextView) convertView.findViewById(R.id.textView_userCommentID);
             holder.btn_Up = (ImageButton) convertView.findViewById(R.id.btn_Up);
             holder.btn_Down = (ImageButton) convertView.findViewById(R.id.btn_Down);
+            holder.chkApproveAnswer = (CheckBox) convertView.findViewById(R.id.chkApproveAnswer);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -97,8 +102,11 @@ public class AnswerListAdapter extends BaseAdapter implements Serializable {
         }
         holder.userCommentID.setText(userAnser);
 
-       /* holder.btn_Up.setOnClickListener(onUpvoteClickListener);
-        holder.btn_Down.setOnClickListener(onDownvoteClickListener);*/
+        if (userRoleId == 3) {
+            holder.chkApproveAnswer.setEnabled(true);
+        } else {
+            holder.chkApproveAnswer.setEnabled(false);
+        }
 
         int statusVoteAnswer = getStatusVoteAnswer(selectedAnswer.getAnsId(), userId);
         if ((statusVoteAnswer == 1) || (selectedAnswer.getUserId() == userId)) {
@@ -110,6 +118,12 @@ public class AnswerListAdapter extends BaseAdapter implements Serializable {
             holder.btn_Down.setEnabled(false);
         } else {
             holder.btn_Down.setEnabled(true);
+        }
+
+        if (selectedAnswer.isApprovedByMentor()) {
+            holder.chkApproveAnswer.setChecked(true);
+        } else {
+            holder.chkApproveAnswer.setChecked(false);
         }
 
         holder.btn_Up.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +186,27 @@ public class AnswerListAdapter extends BaseAdapter implements Serializable {
             }
         });
 
+
+        holder.chkApproveAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View parentRow = (View) view.getParent();
+                ListView listView = (ListView) parentRow.getParent();
+                final int pos = listView.getPositionForView(parentRow);
+                Answer selected = listData.get(pos);
+
+                if (holder.chkApproveAnswer.isChecked()) {
+                    selected.setApprovedByMentor(true);
+                    selected.setApprovedMentorId(userId);
+                    updateAnswerTotalVote(selected);
+                } else {
+                    selected.setApprovedByMentor(false);
+                    selected.setApprovedMentorId(userId);
+                    updateAnswerTotalVote(selected);
+                }
+            }
+        });
+
         return convertView;
     }
 
@@ -222,6 +257,6 @@ public class AnswerListAdapter extends BaseAdapter implements Serializable {
         TextView answerContent;
         TextView userCommentID;
         ImageButton btn_Up, btn_Down;
-
+        CheckBox chkApproveAnswer;
     }
 }

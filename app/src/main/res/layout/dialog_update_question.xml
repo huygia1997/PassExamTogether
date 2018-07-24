@@ -27,6 +27,30 @@
         android:inputType="textPersonName" />
 
     <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="?android:attr/listDivider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subject Code  "
+            />
+
+        <Spinner
+            android:id="@+id/spnrSubjectInGroupActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></Spinner>
+
+    </LinearLayout>
+
+    <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="13dp"
@@ -41,7 +65,7 @@
         android:inputType="textPersonName" />
 
     <View
-        android:id="@+id/divider3"
+        android:id="@+id/divider4"
         android:layout_width="match_parent"
         android:layout_height="13dp"
         android:background="?android:attr/listDivider" />

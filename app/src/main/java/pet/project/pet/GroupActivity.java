@@ -9,21 +9,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import pet.project.pet.adapter.QuestionListAdapter;
 import pet.project.pet.model.Group;
 import pet.project.pet.model.Question;
 import pet.project.pet.model.ResObj;
+import pet.project.pet.model.Subject;
 import pet.project.pet.remote.ApiUtils;
 import pet.project.pet.remote.GroupService;
 import pet.project.pet.remote.QuestionService;
+import pet.project.pet.remote.SubjectService;
 import pet.project.pet.sharedPrefApp.SharedPrefApp;
 import retrofit2.Call;
 
@@ -36,6 +42,10 @@ public class GroupActivity extends AppCompatActivity {
     private final String REQUIRED_FIELD = "Field is required!";
     TextView txt_edit_title;
     TextView txt_edit_content;
+    TextView txt_edit_question;
+    Spinner spnrSubjectInGroupActivity;
+    private List<Subject> subjects;
+    private SubjectService subjectService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +55,18 @@ public class GroupActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listQuestion);
         setSupportActionBar(toolbar);
 
-        questionService = ApiUtils.getQuestionService();
-        groupService = ApiUtils.getGroupService();
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        questionService = ApiUtils.getQuestionService();
+        groupService = ApiUtils.getGroupService();
+
+        subjectService = ApiUtils.getSubjectService();
+        subjects = getAllSubject();
 
         Intent intentFromGroupFragment = getIntent();
         final int groupId = intentFromGroupFragment.getIntExtra("GroupId", 0);
+        final Group selectedGroup = (Group) intentFromGroupFragment.getSerializableExtra("SelectedGroup");
 
         questions = getListQuestions(groupId);
         final List<Group> currentGroup = getCurrentGroup(groupId);
@@ -79,6 +92,35 @@ public class GroupActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_update_question);
                 txt_edit_title = (TextView) dialog.findViewById(R.id.txt_edit_ques_title);
                 txt_edit_content = (TextView) dialog.findViewById(R.id.txt_edit_quest_content);
+                txt_edit_question = (TextView) dialog.findViewById(R.id.txt_edit_question);
+                spnrSubjectInGroupActivity = (Spinner) dialog.findViewById(R.id.spnrSubjectInGroupActivity);
+
+                final List<Subject> dataSrc = new ArrayList<>();
+
+                for (Subject x : subjects) {
+                    dataSrc.add(x);
+                }
+                ArrayAdapter<Subject> dataAdapter = new ArrayAdapter<Subject>(GroupActivity.this, android.R.layout.simple_spinner_item, dataSrc);
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spnrSubjectInGroupActivity.setAdapter(dataAdapter);
+
+                txt_edit_question.setText("Create Question");
+
+                selectedGroup.getSubCode();
+                if (selectedGroup.getSubCode() == null || selectedGroup.getSubCode() == "" || selectedGroup.getSubCode().isEmpty()) {
+                    spnrSubjectInGroupActivity.setEnabled(true);
+                } else {
+                    for (int i = 0; i < spnrSubjectInGroupActivity.getAdapter().getCount(); i++) {
+                        String subCode = spnrSubjectInGroupActivity.getAdapter().getItem(i).toString();
+                        if (subCode != null) {
+                            if (subCode.contains(selectedGroup.getSubCode())) {
+                                spnrSubjectInGroupActivity.setSelection(i);
+                            }
+                        }
+
+                    }
+                    spnrSubjectInGroupActivity.setEnabled(false);
+                }
 
                 dialog.show();
 
@@ -86,7 +128,6 @@ public class GroupActivity extends AppCompatActivity {
                 btn_submit_edit_quest.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(GroupActivity.this, "tao ques", Toast.LENGTH_SHORT).show();
 
                         SharedPrefApp sharedPrefApp = SharedPrefApp.getInstance();
                         int userId = sharedPrefApp.getCurrentUserId(getApplicationContext());
@@ -120,6 +161,17 @@ public class GroupActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private List<Subject> getAllSubject() {
+        List<Subject> subjectList = null;
+        Call<List<Subject>> call = subjectService.getAllSubjects();
+        try {
+            subjectList = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return subjectList;
     }
 
     private void updateGroup(Group group) {

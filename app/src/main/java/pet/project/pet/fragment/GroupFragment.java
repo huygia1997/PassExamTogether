@@ -74,6 +74,7 @@ public class GroupFragment extends Fragment {
                                 if (txt_group_password.getText().toString().compareTo(groupSelected.getPassword()) == 0) {
                                     Intent intent = new Intent(getActivity(), GroupActivity.class);
                                     intent.putExtra("GroupId", groupSelected.getGroupId());
+                                    intent.putExtra("SelectedGroup", groupSelected);
                                     GroupParticipant participant = new GroupParticipant(groupSelected.getGroupId(), groupSelected.getUserId());
                                     addUserToGroupParticipant(participant);
                                     getActivity().startActivity(intent);
@@ -87,11 +88,13 @@ public class GroupFragment extends Fragment {
                     } else {
                         Intent intent = new Intent(getActivity(), GroupActivity.class);
                         intent.putExtra("GroupId", groupSelected.getGroupId());
+                        intent.putExtra("SelectedGroup", groupSelected);
                         getActivity().startActivity(intent);
                     }
                 } else {
                     Intent intent = new Intent(getActivity(), GroupActivity.class);
                     intent.putExtra("GroupId", groupSelected.getGroupId());
+                    intent.putExtra("SelectedGroup", groupSelected);
                     getActivity().startActivity(intent);
                 }
             }

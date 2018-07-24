@@ -61,4 +61,12 @@
         app:srcCompat="@android:drawable/arrow_down_float"
         android:onClick="clickToDownVote"/>
 
+    <CheckBox
+        android:id="@+id/chkApproveAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView_answerContent"
+        android:layout_alignEnd="@+id/textView_answerContent"
+        android:text="" />
+
 </RelativeLayout>

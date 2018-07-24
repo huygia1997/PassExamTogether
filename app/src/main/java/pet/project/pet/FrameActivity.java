@@ -1,7 +1,10 @@
 package pet.project.pet;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -49,6 +52,9 @@ public class FrameActivity extends AppCompatActivity {
     EditText groupName, groupPassword, groupConfirmPassword;
     private final String REQUIRED_FIELD = "Field is required!";
     private int currentUserRoleId;
+    ImageButton btn_create_group;
+    EditText edtSubName, edtSubCode;
+    Button btnSubmitCreateSubject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +75,12 @@ public class FrameActivity extends AppCompatActivity {
         userService = ApiUtils.getUserService();
         currentUserRoleId = getCurrentUserRoleId();
 
-        /*mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItem()) {
+                switch (item.getItemId()) {
                     case R.id.nav_logout:
 
                         SharedPrefApp sharedPref;
@@ -93,7 +99,7 @@ public class FrameActivity extends AppCompatActivity {
                         return false;
                 }
             }
-        });*/
+        });
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -109,70 +115,17 @@ public class FrameActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btn_create_group = (ImageButton) view.findViewById(R.id.btn_add_group);
-        btn_create_group.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog = new Dialog(FrameActivity.this);
-                dialog.setContentView(R.layout.dialog_creating_group);
-                groupName = (EditText) dialog.findViewById(R.id.txt_group_name);
-                groupPassword = (EditText) dialog.findViewById(R.id.txt_group_pass);
-                groupConfirmPassword = (EditText) dialog.findViewById(R.id.txt_group_confirmpassword);
-                spnr_Subject = (Spinner) dialog.findViewById(R.id.spnr_Subject);
-
-                final List<Subject> dataSrc = new ArrayList<>();
-
-                for (Subject x : subjects) {
-                    dataSrc.add(x);
-                }
-                ArrayAdapter<Subject> dataAdapter = new ArrayAdapter<Subject>(FrameActivity.this, android.R.layout.simple_spinner_item, dataSrc);
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spnr_Subject.setAdapter(dataAdapter);
-                dialog.show();
-
-                Button btn_submit_create_group = (Button) dialog.findViewById(R.id.btn_submit_create_group);
-
-                btn_submit_create_group.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String nameNewGroup = groupName.getText().toString();
-
-                        Subject subject = (Subject) spnr_Subject.getSelectedItem();
-                        int subId = subject.getSubId();
-
-                        String passwordNewGroup = groupPassword.getText().toString();
-                        String confirmPasswordNewGroup = groupConfirmPassword.getText().toString();
-
-                        SharedPrefApp sharedPrefApp = SharedPrefApp.getInstance();
-                        int userId = sharedPrefApp.getCurrentUserId(getApplicationContext());
-
-                        /*SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-                        Calendar calendar = Calendar.getInstance();
-                        Date date = Date.valueOf(sdf.format(calendar.getTime()));*/
-
-                        if (valiedationCreateNewGroup(nameNewGroup, passwordNewGroup, confirmPasswordNewGroup)) {
-                            createNewGroup(nameNewGroup, subId, passwordNewGroup, userId, 0, true);
-
-                            finish();
-                            startActivity(getIntent());
-                            dialog.dismiss();
-
-                        }
-                    }
-                });
-
-            }
-        });
+        btn_create_group = (ImageButton) view.findViewById(R.id.btn_add_group);
 
     }
 
-    private int getCurrentUserRoleId(){
+    private int getCurrentUserRoleId() {
         SharedPrefApp sharedPrefApp = SharedPrefApp.getInstance();
         int userId = sharedPrefApp.getCurrentUserId(getApplicationContext());
         int currentUserRoleId = sharedPrefApp.getCurrentUserRoleId(getApplicationContext());
-        if(currentUserRoleId == 4){
-            if(checkApprovedTuitorRequest(userId) == 3) {
-                Toast.makeText(this, "Your Tuitor Requirement is accepted", Toast.LENGTH_SHORT).show();
+        if (currentUserRoleId == 4) {
+            if (checkApprovedTuitorRequest(userId) == 3) {
+                Toast.makeText(this, "Your Tutor Requirement is accepted", Toast.LENGTH_SHORT).show();
             }
         }
         return currentUserRoleId;
@@ -187,7 +140,7 @@ public class FrameActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (User user: users) {
+        for (User user : users) {
             userRoleId = user.getRoleId();
         }
         return userRoleId;
@@ -217,13 +170,131 @@ public class FrameActivity extends AppCompatActivity {
         }
     }
 
-    private void addControl(List<Group> groups, List<Subject> subjects) {
+    private void addControl(List<Group> groups, final List<Subject> subjects) {
         pager = (ViewPager) findViewById(R.id.view_pager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
         PagerAdapter adapter = new PagerAdapter(manager, groups, subjects);
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int selectedTab = tab.getPosition();
+                switch (selectedTab) {
+                    case 1:
+                        btn_create_group.setVisibility(View.VISIBLE);
+                        btn_create_group.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog = new Dialog(FrameActivity.this);
+                                dialog.setContentView(R.layout.dialog_creating_group);
+                                groupName = (EditText) dialog.findViewById(R.id.txt_group_name);
+                                groupPassword = (EditText) dialog.findViewById(R.id.txt_group_pass);
+                                groupConfirmPassword = (EditText) dialog.findViewById(R.id.txt_group_confirmpassword);
+                                spnr_Subject = (Spinner) dialog.findViewById(R.id.spnr_Subject);
+
+                                final List<Subject> dataSrc = new ArrayList<>();
+                                List<Subject> subjectLists = getAllSubject();
+                                for (Subject x : subjectLists) {
+                                    dataSrc.add(x);
+                                }
+                                ArrayAdapter<Subject> dataAdapter = new ArrayAdapter<Subject>(FrameActivity.this, android.R.layout.simple_spinner_item, dataSrc);
+                                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spnr_Subject.setAdapter(dataAdapter);
+                                dialog.show();
+
+                                Button btn_submit_create_group = (Button) dialog.findViewById(R.id.btn_submit_create_group);
+
+                                btn_submit_create_group.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String nameNewGroup = groupName.getText().toString();
+
+                                        Subject subject = (Subject) spnr_Subject.getSelectedItem();
+                                        int subId = subject.getSubId();
+
+                                        String passwordNewGroup = groupPassword.getText().toString();
+                                        String confirmPasswordNewGroup = groupConfirmPassword.getText().toString();
+
+                                        SharedPrefApp sharedPrefApp = SharedPrefApp.getInstance();
+                                        int userId = sharedPrefApp.getCurrentUserId(getApplicationContext());
+
+                        /*SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                        Calendar calendar = Calendar.getInstance();
+                        Date date = Date.valueOf(sdf.format(calendar.getTime()));*/
+
+                                        if (valiedationCreateNewGroup(nameNewGroup, passwordNewGroup, confirmPasswordNewGroup)) {
+                                            createNewGroup(nameNewGroup, subId, passwordNewGroup, userId, 0, true);
+
+                                            finish();
+                                            startActivity(getIntent());
+                                            dialog.dismiss();
+
+                                        }
+                                    }
+                                });
+
+                            }
+                        });
+                        break;
+                    case 2:
+                        SharedPrefApp sharedPrefApp = SharedPrefApp.getInstance();
+                        int currentUserRoleId = sharedPrefApp.getCurrentUserRoleId(getApplicationContext());
+
+                        if (currentUserRoleId != 3) {
+                            btn_create_group.setVisibility(View.GONE);
+                        } else {
+                            btn_create_group.setVisibility(View.VISIBLE);
+                        }
+
+                        btn_create_group.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog = new Dialog(FrameActivity.this);
+                                dialog.setContentView(R.layout.dialog_create_subject);
+                                edtSubName = (EditText) dialog.findViewById(R.id.edtSubName);
+                                edtSubCode = (EditText) dialog.findViewById(R.id.edtSubCode);
+
+                                dialog.show();
+
+                                btnSubmitCreateSubject = (Button) dialog.findViewById(R.id.btnSubmitCreateSubject);
+
+                                btnSubmitCreateSubject.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String subName = edtSubName.getText().toString();
+                                        String subCode = edtSubCode.getText().toString();
+
+                                        SharedPrefApp sharedPrefApp = SharedPrefApp.getInstance();
+                                        int userId = sharedPrefApp.getCurrentUserId(getApplicationContext());
+
+                                        if (valiedationCreateNewSubject(subName, subCode)) {
+                                            Subject newSubject = new Subject(subName, userId, true, subCode);
+                                            createNewSubject(newSubject);
+                                            finish();
+                                            startActivity(getIntent());
+                                            dialog.dismiss();
+                                        }
+                                    }
+                                });
+
+                            }
+                        });
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabsFromPagerAdapter(adapter);
     }
@@ -258,6 +329,26 @@ public class FrameActivity extends AppCompatActivity {
         return subjectList;
     }
 
+    private boolean valiedationCreateNewSubject(String subName, String subCode) {
+        if (subName.trim().isEmpty() || subName.trim() == "" || subName.trim() == null) {
+            Toast.makeText(this, "Subject Name is required!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (subCode.trim().isEmpty() || subCode.trim() == "" || subCode.trim() == null) {
+            Toast.makeText(this, "Subject Code is required!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private void createNewSubject(Subject subject) {
+        Call<ResObj> call = subjectService.createNewSubject(subject);
+        try {
+            call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
  /*   @Override
     protected void onResume() {
         super.onResume();

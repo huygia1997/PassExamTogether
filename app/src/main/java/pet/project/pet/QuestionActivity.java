@@ -142,9 +142,10 @@ public class QuestionActivity extends AppCompatActivity {
         });
 
         int userId = sharedPrefApp.getCurrentUserId(getApplicationContext());
+        int userRoleId = sharedPrefApp.getCurrentUserRoleId(getApplicationContext());
 
         answers = getAnswersByQuestion(quesId);
-        listView_listAnswer.setAdapter(new AnswerListAdapter(answers, this, userId));
+        listView_listAnswer.setAdapter(new AnswerListAdapter(answers, this, userId, userRoleId));
 
         txtQuestion_QuestionTitle.setText(question.getTitle());
         txtQuestion_QuestionContent.setText(question.getContent());

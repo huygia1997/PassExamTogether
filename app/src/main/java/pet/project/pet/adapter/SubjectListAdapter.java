@@ -23,11 +23,13 @@ public class SubjectListAdapter extends BaseAdapter implements Serializable {
     private List<Subject> listData;
     private LayoutInflater layoutInflater;
     private Context context;
+
     public SubjectListAdapter(List<Subject> listData, Context context) {
         this.listData = listData;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
+
     @Override
     public int getCount() {
         return listData.size();
@@ -46,26 +48,33 @@ public class SubjectListAdapter extends BaseAdapter implements Serializable {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        if(convertView==null){
+        if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.subject_item_layout, null);
             viewHolder = new ViewHolder();
             viewHolder.subjectNameView = (TextView) convertView.findViewById(R.id.textView_subjectName);
             viewHolder.subjectUserCreatedView = (TextView) convertView.findViewById(R.id.textView_subjectUserCreated);
             //viewHolder.subjectTimeCreatedView = (TextView) convertView.findViewById(R.id.textView_subjectTimeCreated);
             convertView.setTag(viewHolder);
-        } else{
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Subject subject = this.listData.get(position);
         viewHolder.subjectNameView.setText(subject.getSubName());
 
-        viewHolder.subjectUserCreatedView.setText(subject.getUserId() + "");
-        if(subject.getCreatedDate()!=null){
+        if (subject.getDisplayName().isEmpty() || subject.getDisplayName() == "") {
+            viewHolder.subjectUserCreatedView.setText(subject.getUsername());
+        } else {
+            viewHolder.subjectUserCreatedView.setText(subject.getDisplayName());
+        }
+
+
+        if (subject.getCreatedDate() != null) {
             viewHolder.subjectTimeCreatedView.setText(subject.getCreatedDate().toString());
         }
         return convertView;
     }
-    static class ViewHolder{
+
+    static class ViewHolder {
         TextView subjectNameView;
         TextView subjectUserCreatedView;
         TextView subjectTimeCreatedView;

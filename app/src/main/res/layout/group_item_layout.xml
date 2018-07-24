@@ -40,25 +40,28 @@
 
     <TextView
         android:id="@+id/textView_groupName"
-        android:layout_width="273dp"
-        android:layout_height="39dp"
+        android:layout_width="251dp"
+        android:layout_height="wrap_content"
         android:layout_above="@id/textView_groupOwner"
         android:layout_alignTop="@+id/textView_numberQuestion"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="25dp"
+        android:layout_marginTop="0dp"
         android:layout_toRightOf="@id/textView_numberQuestion"
         android:background="#c1f6f2d4"
         android:gravity="center_vertical"
         android:text="Group's name"
         android:textColor="#000000"
-        android:textSize="25dp" />
+        android:textSize="25dp"></TextView>
+
 
     <TextView
         android:id="@+id/textView_labelOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView_tag"
         android:layout_alignStart="@+id/textView_groupName"
+        android:layout_below="@+id/textView_numberQuestion"
+        android:layout_marginTop="-5dp"
         android:text="create_by:"
         android:textSize="15dp" />
 
@@ -68,11 +71,31 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/textView_numberQuestion"
-        android:layout_marginEnd="71dp"
+        android:layout_marginEnd="58dp"
         android:layout_marginTop="-5dp"
         android:text="Group's owner"
         android:textColor="#d540413f"
         android:textSize="15dp" />
+
+    <TextView
+    android:id="@+id/img_psss_group"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:layout_alignParentEnd="true"
+    android:layout_alignTop="@+id/textView_numberQuestion"
+    android:drawableRight="@drawable/ic_action_name"
+    android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/img_unlock_pass_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView_numberQuestion"
+        android:drawableRight="@drawable/ic_action_unlock"
+        android:textSize="32sp" />
 
     <!--<TextView
         android:id="@+id/textView_timeCreated"

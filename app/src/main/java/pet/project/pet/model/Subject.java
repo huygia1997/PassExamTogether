@@ -11,6 +11,32 @@ public class Subject implements Serializable {
     private Date updatedDate;
     private boolean active;
     private Date closedDate;
+    private String subCode;
+    private String username;
+    private String displayName;
+
+    public Subject(String subName, int userId, boolean active, String subCode) {
+        this.subName = subName;
+        this.userId = userId;
+        this.active = active;
+        this.subCode = subCode;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
     public Subject(int subId, String subName, int userId, Date createdDate, Date updatedDate, boolean active, Date closedDate) {
         this.subId = subId;
@@ -85,5 +111,18 @@ public class Subject implements Serializable {
 
     public void setClosedDate(Date closedDate) {
         this.closedDate = closedDate;
+    }
+
+    public String getSubCode() {
+        return subCode;
+    }
+
+    public void setSubCode(String subCode) {
+        this.subCode = subCode;
+    }
+
+    @Override
+    public String toString() {
+        return getSubCode();
     }
 }

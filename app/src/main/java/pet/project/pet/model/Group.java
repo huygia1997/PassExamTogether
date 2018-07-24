@@ -16,6 +16,15 @@ public class Group implements Serializable {
     private Date closedDate;
     private String username;
     private String displayName;
+    private String subCode;
+
+    public String getSubCode() {
+        return subCode;
+    }
+
+    public void setSubCode(String subCode) {
+        this.subCode = subCode;
+    }
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;

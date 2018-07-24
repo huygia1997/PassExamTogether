@@ -15,12 +15,9 @@ import pet.project.pet.R;
 
 public class RecentFragment extends Fragment {
 
-
     public RecentFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,4 +34,6 @@ public class RecentFragment extends Fragment {
         RadioButton rd_group_choice = (RadioButton)getActivity().findViewById(R.id.rd_group_choice);
         rd_group_choice.setChecked(true);
     }
+
+
 }
