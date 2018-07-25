@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#94e1f0e8"
@@ -16,13 +15,13 @@
         android:layout_marginRight="5dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:background="#9ae9e2e2"
-        android:text="50 q"
-        android:textSize="20dp"
-
         android:width="64dp"
-        android:height="64dp" />
+        android:height="64dp"
+        android:background="#9ae9e2e2"
+        android:gravity="center"
+
+        android:text="50 q"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/textView_tag"
@@ -31,12 +30,12 @@
         android:layout_alignStart="@+id/textView_numberQuestion"
         android:layout_below="@+id/textView_numberQuestion"
         android:layout_marginTop="-5dp"
+        android:width="64dp"
+        android:height="20dp"
+        android:background="#cff4b4b4"
         android:gravity="center"
         android:text="swd"
-        android:textColor="#555668"
-        android:background="#cff4b4b4"
-        android:width="64dp"
-        android:height="20dp" />
+        android:textColor="#555668" />
 
     <TextView
         android:id="@+id/textView_groupName"
@@ -78,14 +77,14 @@
         android:textSize="15dp" />
 
     <TextView
-    android:id="@+id/img_psss_group"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+        android:id="@+id/img_psss_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-    android:layout_alignParentEnd="true"
-    android:layout_alignTop="@+id/textView_numberQuestion"
-    android:drawableRight="@drawable/ic_action_name"
-    android:textSize="32sp" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView_numberQuestion"
+        android:drawableRight="@drawable/ic_action_name"
+        android:textSize="32sp" />
 
     <TextView
         android:id="@+id/img_unlock_pass_group"
@@ -94,7 +93,7 @@
 
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/textView_numberQuestion"
-        android:drawableRight="@drawable/ic_action_unlock"
+        android:drawableRight="@drawable/unlock"
         android:textSize="32sp" />
 
     <!--<TextView

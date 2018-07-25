@@ -106,14 +106,14 @@ public class FrameActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_layout);
         View view = getSupportActionBar().getCustomView();
 
-        ImageButton btn_search = (ImageButton) view.findViewById(R.id.btn_search);
+        //ImageButton btn_search = (ImageButton) view.findViewById(R.id.btn_search);
 
-        btn_search.setOnClickListener(new View.OnClickListener() {
+        /*btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Forward Button is clicked", Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
         btn_create_group = (ImageButton) view.findViewById(R.id.btn_add_group);
 

@@ -23,11 +23,13 @@ import java.util.List;
 
 import pet.project.pet.adapter.QuestionListAdapter;
 import pet.project.pet.model.Group;
+import pet.project.pet.model.History;
 import pet.project.pet.model.Question;
 import pet.project.pet.model.ResObj;
 import pet.project.pet.model.Subject;
 import pet.project.pet.remote.ApiUtils;
 import pet.project.pet.remote.GroupService;
+import pet.project.pet.remote.HistoryService;
 import pet.project.pet.remote.QuestionService;
 import pet.project.pet.remote.SubjectService;
 import pet.project.pet.sharedPrefApp.SharedPrefApp;
@@ -46,6 +48,7 @@ public class GroupActivity extends AppCompatActivity {
     Spinner spnrSubjectInGroupActivity;
     private List<Subject> subjects;
     private SubjectService subjectService;
+    HistoryService historyService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,8 @@ public class GroupActivity extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        historyService = ApiUtils.getHistoryService();
 
         questionService = ApiUtils.getQuestionService();
         groupService = ApiUtils.getGroupService();
@@ -79,6 +84,12 @@ public class GroupActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(GroupActivity.this, QuestionActivity.class);
                 intent.putExtra("QuestionSelected", questionSelected);
+
+                SharedPrefApp sharedPrefApp = SharedPrefApp.getInstance();
+                int userId = sharedPrefApp.getCurrentUserId(getApplicationContext());
+                History history = new History(userId, questionSelected.getQuesId(), 2);
+                addToHistory(history);
+
                 startActivity(intent);
 
             }
@@ -161,6 +172,16 @@ public class GroupActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void addToHistory(History history){
+        //historyService = ApiUtils.getHistoryService();
+        Call<ResObj> call = historyService.addToHistory(history);
+        try {
+            call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private List<Subject> getAllSubject() {

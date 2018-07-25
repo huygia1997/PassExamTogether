@@ -44,7 +44,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_action_unlock" />
+                                      <entry key="outputName" value="unlock" />
                                     </map>
                                   </option>
                                 </PersistentState>

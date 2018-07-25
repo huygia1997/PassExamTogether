@@ -3,7 +3,7 @@ package pet.project.pet.remote;
 import pet.project.pet.model.Subject;
 
 public class ApiUtils {
-    public static final String BASE_UTL = "http://192.168.21.135/pet.com/";
+    public static final String BASE_UTL = "http://192.168.43.139/pet.com/";
 
     public static UserService getUserService() {
         return RetrofitClient.getClient(BASE_UTL).create(UserService.class);
@@ -31,6 +31,10 @@ public class ApiUtils {
 
     public static VoteService getVoteService(){
         return RetrofitClient.getClient(BASE_UTL).create(VoteService.class);
+    }
+
+    public static HistoryService getHistoryService(){
+        return RetrofitClient.getClient(BASE_UTL).create(HistoryService.class);
     }
 }
 

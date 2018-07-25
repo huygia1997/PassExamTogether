@@ -37,22 +37,18 @@
                 android:text="Group" />
 
             <RadioButton
-                android:id="@+id/rd_subject_choice"
+                android:id="@+id/rd_question_choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Subject" />
+                android:text="Question" />
 
         </RadioGroup>
 
     </RelativeLayout>
 
-
-
-
-
-
-
-
-
+    <ListView
+        android:id="@+id/lv_recent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>

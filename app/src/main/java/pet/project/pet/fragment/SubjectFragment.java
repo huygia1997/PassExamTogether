@@ -12,8 +12,12 @@ import java.util.List;
 import pet.project.pet.R;
 import pet.project.pet.adapter.SubjectListAdapter;
 import pet.project.pet.model.Subject;
+import pet.project.pet.sharedPrefApp.SharedPrefApp;
 
 public class SubjectFragment extends Fragment {
+
+    SharedPrefApp sharedPrefApp;
+    private int currentUserId;
 
     public SubjectFragment() {
         // Required empty public constructor
@@ -28,8 +32,13 @@ public class SubjectFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_subject, container, false);
         List<Subject> subjectList = (List<Subject>) getArguments().getSerializable("subjectList");
         final ListView listView = (ListView) rootView.findViewById(R.id.listView_listSubject);
-        final SubjectListAdapter adapter = new SubjectListAdapter(subjectList, getActivity());
+
+        sharedPrefApp = SharedPrefApp.getInstance();
+        currentUserId = sharedPrefApp.getCurrentUserId(getContext());
+
+        final SubjectListAdapter adapter = new SubjectListAdapter(subjectList, getActivity(), currentUserId);
         listView.setAdapter(adapter);
+
 
         return rootView;
     }

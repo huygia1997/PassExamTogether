@@ -20,9 +20,12 @@ import pet.project.pet.GroupActivity;
 import pet.project.pet.adapter.GroupListAdapter;
 import pet.project.pet.R;
 import pet.project.pet.model.GroupParticipant;
+import pet.project.pet.model.History;
 import pet.project.pet.model.ResObj;
 import pet.project.pet.remote.ApiUtils;
 import pet.project.pet.remote.GroupParticipantService;
+import pet.project.pet.remote.HistoryService;
+import pet.project.pet.sharedPrefApp.SharedPrefApp;
 import retrofit2.Call;
 
 public class GroupFragment extends Fragment {
@@ -30,6 +33,7 @@ public class GroupFragment extends Fragment {
     private Button btn_group_login;
     private pet.project.pet.model.Group groupSelected;
     GroupParticipantService groupParticipantService;
+    HistoryService historyService;
 
     public GroupFragment() {
         // Required empty public constructor
@@ -43,18 +47,18 @@ public class GroupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_group, container, false);
-        List<pet.project.pet.model.Group> groupList = (List<pet.project.pet.model.Group>) getArguments().getSerializable("groupList");
 
         groupParticipantService = ApiUtils.getGroupParticipantService();
+
+        List<pet.project.pet.model.Group> groupList = (List<pet.project.pet.model.Group>) getArguments().getSerializable("groupList");
         final ListView listView = (ListView) rootView.findViewById(R.id.listGroup);
         final GroupListAdapter groupAdapt = new GroupListAdapter(groupList, getActivity());
         listView.setAdapter(groupAdapt);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 groupSelected = (pet.project.pet.model.Group) listView.getAdapter().getItem(position);
-
-
                 //check selected group is public?
                 if (!(groupSelected.getPassword() == null || groupSelected.getPassword().isEmpty() || groupSelected.getPassword() == "")) {
                     //Create a dialog to input pass and compare with groupSelected.getPassword()
@@ -75,8 +79,15 @@ public class GroupFragment extends Fragment {
                                     Intent intent = new Intent(getActivity(), GroupActivity.class);
                                     intent.putExtra("GroupId", groupSelected.getGroupId());
                                     intent.putExtra("SelectedGroup", groupSelected);
+
                                     GroupParticipant participant = new GroupParticipant(groupSelected.getGroupId(), groupSelected.getUserId());
                                     addUserToGroupParticipant(participant);
+
+                                    SharedPrefApp sharedPrefApp = SharedPrefApp.getInstance();
+                                    int userId = sharedPrefApp.getCurrentUserId(getContext());
+                                    History history = new History(userId, groupSelected.getGroupId(), 1);
+                                    addToHistory(history);
+
                                     getActivity().startActivity(intent);
                                     dialog.dismiss();
                                 } else {
@@ -86,12 +97,20 @@ public class GroupFragment extends Fragment {
                             }
                         });
                     } else {
+                        SharedPrefApp sharedPrefApp = SharedPrefApp.getInstance();
+                        int userId = sharedPrefApp.getCurrentUserId(getContext());
+                        History history = new History(userId, groupSelected.getGroupId(), 1);
+                        addToHistory(history);
                         Intent intent = new Intent(getActivity(), GroupActivity.class);
                         intent.putExtra("GroupId", groupSelected.getGroupId());
                         intent.putExtra("SelectedGroup", groupSelected);
                         getActivity().startActivity(intent);
                     }
                 } else {
+                    SharedPrefApp sharedPrefApp = SharedPrefApp.getInstance();
+                    int userId = sharedPrefApp.getCurrentUserId(getContext());
+                    History history = new History(userId, groupSelected.getGroupId(), 1);
+                    addToHistory(history);
                     Intent intent = new Intent(getActivity(), GroupActivity.class);
                     intent.putExtra("GroupId", groupSelected.getGroupId());
                     intent.putExtra("SelectedGroup", groupSelected);
@@ -102,6 +121,16 @@ public class GroupFragment extends Fragment {
 
 
         return rootView;
+    }
+
+    private void addToHistory(History history){
+        historyService = ApiUtils.getHistoryService();
+        Call<ResObj> call = historyService.addToHistory(history);
+        try {
+            call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean checkParticipantInGroup(int groupId, int userId) {

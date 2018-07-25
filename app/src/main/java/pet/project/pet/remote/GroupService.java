@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface GroupService {
 
@@ -24,4 +25,8 @@ public interface GroupService {
     @POST("api/group/updateGroup")
     Call<ResObj> updateGroup(@Body Group group);
 
+    @GET("api/group/getRecentGroupList")
+    Call<List<Group>> getRecentGroupList(
+            @Query("userId") int userId
+    );
 }

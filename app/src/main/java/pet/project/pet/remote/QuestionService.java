@@ -24,4 +24,7 @@ public interface QuestionService  {
     @POST("api/question/updateQuestion")
     Call<ResObj> updateQuestion(@Body Question question);
 
+    @GET("api/question/getQuestionsById/{quesId}")
+    Call<List<Question>> getQuestionsByQuesId(@Path("quesId") int quesId);
+
 }

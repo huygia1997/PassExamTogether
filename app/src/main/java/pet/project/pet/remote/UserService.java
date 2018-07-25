@@ -27,4 +27,7 @@ public interface UserService {
 
     @GET("api/user/getUserById/{userId}")
     Call<List<User>> getUserById(@Path("userId") int userId);
+
+    @POST("api/user/updateUser")
+    Call<ResObj> updateUser(@Body User user);
 }

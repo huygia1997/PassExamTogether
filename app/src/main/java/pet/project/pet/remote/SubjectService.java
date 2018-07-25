@@ -16,4 +16,7 @@ public interface SubjectService {
     @POST("api/subject/createSubject")
     Call<ResObj> createNewSubject(@Body Subject subject);
 
+    @POST("api/subject/updateSubject")
+    Call<ResObj> updateSubject(@Body Subject subject);
+
 }
